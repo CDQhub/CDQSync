@@ -1,4 +1,4 @@
-#!/bash/bin
+#!/bin/bash
 
 cd ~/.vim/bundle/YouCompleteMe
 sudo yum install -y clang
