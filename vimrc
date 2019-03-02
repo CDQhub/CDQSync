@@ -63,28 +63,64 @@ nnoremap <C-H> <C-W><C-H>
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 "定义函数SetTitle，自动插入文件头 
 func SetTitle()
+	if &filetype == 'html'
+		call setline(1, "<!DOCTYPE html>")
+		call append(line("."), '<html lang="en">')
+		call append(line(".")+1, '<head>')
+		call append(line(".")+2, '<meta charset="UTF-8">')
+		call append(line(".")+3, '<meta name="viewport" content="width=device-width, initial-scale=1.0">')
+		call append(line(".")+4, '<meta http-equiv="X-UA-Compatible" content="ie=edge">')
+		call append(line(".")+5, '<title>Document</title>')
+		call append(line(".")+6, '</head>')
+		call append(line(".")+7, '<body>')
+		call append(line(".")+8, "")
+		call append(line(".")+9, '</body>')
+		call append(line(".")+10, '</html>')
+		normal 10G
+		return
+	endif
 	"如果文件类型为.sh文件 
 	if &filetype == 'sh' 
-		call append(line(".")+1, "\#!/bin/bash") 
-		call append(line(".")+2, "") 
+		call setline(1, "\#!/bin/bash") 
+		call append(line("."), "") 
 	endif
 	if &filetype == 'cpp'
-	    call append(line(".")+1, "#include <iostream>")
-		call append(line(".")+2, "using namespace std;")
-		call append(line(".")+3, "")
+	    call setline(1, "\#include <iostream>")
+		call append(line("."), "using namespace std;")
+		call append(line(".")+1, "")
 	endif
 	if &filetype == 'c'
-		call append(line(".")+1, "#include <stdio.h>")
-		call append(line(".")+2, "")
+		call setline(1, "\#include <stdio.h>")
+		call append(line("."), "")
 	endif
-	"    if &filetype == 'java'
-	"        call append(line(".")+1,"public class ".expand("%"))
-	"        call append(line(".")+2,"")
-    "    endif
+	if &filetype == 'h'
+		call setline(1, "\#program once")
+		call append(line("."), "#include <stdio.h>")
+		call append(line(".")+1, "")
+	endif
+	if &filetype == 'java'
+		call setline(1,"public class ".expand("%"))
+    	call append(line("."),"")
+    endif
+	if &filetype == 'py'
+		call setline(1,"\#!/usr/bin/py3")
+		call append(line("."), "")
+		call append(line(".")+1, "import os")
+		call append(line(".")+2, "import sys")
+		call append(line(".")+3, "")
+	endif
+	if &filetype == 'php'
+		call setline(1, "\#!/bin/php")
+		call append(line("."), "<?php")
+		call append(line(".")+1, "")
+		call setline(line(".")+2, "?>")
+		normal 3G
+		return
+	endif
 	"新建文件后，自动定位到文件末尾
-	autocmd BufNewFile * normal G
+	normal G
 endfunc
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
+autocmd BufNewFile *.html,*.php,*.py,*.cpp,*.[ch],*.sh,*.java exec ':call SetTitle()'
 
 " basic setting
 syntax on
