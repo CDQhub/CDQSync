@@ -1,8 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-username=caodaqian
-
+username=cdq
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$username/.oh-my-zsh"
 
@@ -65,10 +64,10 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
   git
   wd
-  zsh-syntax-highlighting
-  zsh-autosuggestions
   history
   encode64
+  extract
+  jsontools
   history-substring-search
 )
 
@@ -77,7 +76,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 DEFAULT_USER="$username"
-
 #bindkey ',' autosuggest-accept
 bindkey '^R' history-incremental-search-backward
 bindkey '\^U' backward-kill-line
@@ -111,13 +109,10 @@ bindkey "[C" forward-word
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
 alias vi='vim'
 alias cls='clear'
-alias la='ls -ah'
-alias ls='ls -h'
-alias ll='ls -lh'
+alias clsls='clear && ls'
+alias la='ls -a'
 alias grep='grep --color=auto'
 alias gc='git checkout'
 alias gpl='git pull'
@@ -127,11 +122,6 @@ alias gp='git push'
 alias gcm='git commit'
 alias gl='git log'
 alias gs='git status'
-alias hycat='/usr/bin/hadoop/software/yarn/bin/hadoop fs -text'
-alias hyls='/usr/bin/hadoop/software/yarn/bin/hadoop fs -ls'
-alias hyrm='/usr/bin/hadoop/software/yarn/bin/hadoop fs -rm'
-alias hyarn='/usr/bin/hadoop/software/yarn/bin/hadoop'
-alias sudo='sudo -H -u cloud'
-alias su='sudo -H -u cloud bash'
+alias grep='grep --color'
 
 export PATH
