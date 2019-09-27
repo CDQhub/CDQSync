@@ -1,0 +1,33 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias vi='vim'
+alias cls='clear'
+alias la='ls -ah'
+alias ls='ls -h'
+alias ll='ls -lh'
+alias grep='grep --color=auto'
+alias gc='git checkout'
+alias gpl='git pull'
+alias gb='git branch'
+alias ga='git add'
+alias gp='git push'
+alias gcm='git commit'
+alias gl='git log'
+alias gs='git status'
+alias hycat='/usr/bin/hadoop/software/yarn/bin/hadoop fs -text'
+alias hyls='/usr/bin/hadoop/software/yarn/bin/hadoop fs -ls'
+alias hyrm='/usr/bin/hadoop/software/yarn/bin/hadoop fs -rm'
+alias hyarn='/usr/bin/hadoop/software/yarn/bin/hadoop'
+alias sudo='sudo -H -u cloud'
+alias su='sudo -H -u cloud bash'
+rmt () {	mv "$@" ~/.trash && echo "已放置回收站\n"; }
+md () { mkdir -p "$@" && cd "$1";}

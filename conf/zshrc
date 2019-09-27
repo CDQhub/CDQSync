@@ -1,8 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+username=caodaqian
+
 # Path to your oh-my-zsh installation.
-export ZSH="/home/cdq/.oh-my-zsh"
+export ZSH="/home/$username/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -74,7 +76,8 @@ source $ZSH/oh-my-zsh.sh
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
 # User configuration
-DEFAULT_USER="cdq"
+DEFAULT_USER="$username"
+
 #bindkey ',' autosuggest-accept
 bindkey '^R' history-incremental-search-backward
 bindkey '\^U' backward-kill-line
@@ -108,10 +111,13 @@ bindkey "[C" forward-word
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
 alias vi='vim'
 alias cls='clear'
-alias clsls='clear && ls'
-alias la='ls -a'
+alias la='ls -ah'
+alias ls='ls -h'
+alias ll='ls -lh'
 alias grep='grep --color=auto'
 alias gc='git checkout'
 alias gpl='git pull'
@@ -121,6 +127,11 @@ alias gp='git push'
 alias gcm='git commit'
 alias gl='git log'
 alias gs='git status'
-alias grep='grep --color'
+alias hycat='/usr/bin/hadoop/software/yarn/bin/hadoop fs -text'
+alias hyls='/usr/bin/hadoop/software/yarn/bin/hadoop fs -ls'
+alias hyrm='/usr/bin/hadoop/software/yarn/bin/hadoop fs -rm'
+alias hyarn='/usr/bin/hadoop/software/yarn/bin/hadoop'
+alias sudo='sudo -H -u cloud'
+alias su='sudo -H -u cloud bash'
 
 export PATH
