@@ -5,7 +5,6 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -29,17 +28,16 @@ map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
 
 "" YouCompleteMe setting
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_key_invoke_completion='<C-a>'
-set completeopt-=preview
+"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"let g:ycm_key_invoke_completion='<C-a>'
+"set completeopt-=preview
 "nnoremap <C-g> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " altercation/vim-colors-solarized setting
 syntax enable
 set background=dark
 if has('gui_running')
-	"set background=light
 	colorscheme solarized
 else
 	colorscheme koehler
@@ -48,19 +46,26 @@ endif
 " SimplyFold setting
 let g:SimpylFold_docstring_preview=1
 
+" Enable folding with the spacebar
+nnoremap <space> za
+
 " airline setting
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='kalisi'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+"let g:airline_theme='kalisi'
+let g:airline_theme='luna'
 let python_highlight_all=1
+if has('win32')
+	set guifont=Hermit:h14
+	set guifontwide=Microsoft_YaHei_Mono:h14
+endif
 
 " mark badwhitespace with red
 highlight BadWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-" Enable folding with the spacebar
-nnoremap <space> za
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -71,8 +76,10 @@ nnoremap <C-H> <C-W><C-H>
 " basic setting
 syntax on
 set backspace=indent,eol,start
-"set number
-set relativenumber
+set number
+set foldmethod=indent
+set foldlevel=99
+"set relativenumber
 set tabstop=4
 set shiftwidth=4
 set cindent
