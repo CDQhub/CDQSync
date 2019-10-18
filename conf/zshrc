@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-username=cdq
+username=`whoami`
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$username/.oh-my-zsh"
 
@@ -108,22 +108,21 @@ bindkey "[C" forward-word
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias cp='cp -i'
 alias rm='rm -i'
+alias mv='mv -i'
 alias vi='vim'
 alias cls='clear'
 alias clsls='clear && ls'
+alias ls='ls --color=auto'
 alias la='ls -a --color=auto'
-alias ls='ls -h --color=auto'
 alias ll='ls -hl --color=auto'
 alias grep='grep --color=auto'
-alias gc='git checkout'
-alias gpl='git pull'
-alias gb='git branch'
-alias ga='git add'
-alias gp='git push'
-alias gcm='git commit'
-alias gl='git log'
-alias gs='git status'
-alias grep='grep --color'
+alias hcat='/usr/bin/hadoop/software/yarn/bin/hadoop fs -text'
+alias hls='/usr/bin/hadoop/software/yarn/bin/hadoop fs -ls'
+alias hrm='/usr/bin/hadoop/software/yarn/bin/hadoop fs -rm'
+alias hyarn='/usr/bin/hadoop/software/yarn/bin/yarn'
+rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
+md () { mkdir -p "$@" && cd "$1";}
 
 export PATH
