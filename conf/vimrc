@@ -1,31 +1,28 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'tmhedberg/SimpylFold'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-call vundle#end()       " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+call plug#begin('~/.vim/plugged')
 
-" scrooloose/nerdtree setting
-map <F3> :NERDTreeMirror<CR>
-map <F3> :NERDTreeToggle<CR>
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'nathanaelkane/vim-indent-guides'
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
+
+Plug 'tmhedberg/SimpylFold'
+"Plug 'Valloric/YouCompleteMe'
+
+Plug 'vim-scripts/indentpython.vim'
+
+Plug 'scrooloose/syntastic'
+Plug 'elzr/vim-json'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
+Plug 'mattn/emmet-vim'
+
+call plug#end()
 
 "" YouCompleteMe setting
 "let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
@@ -34,20 +31,8 @@ map <F3> :NERDTreeToggle<CR>
 "set completeopt-=preview
 "nnoremap <C-g> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-" altercation/vim-colors-solarized setting
-syntax enable
-set background=dark
-if has('gui_running')
-	colorscheme solarized
-else
-	colorscheme koehler
-endif
-
 " SimplyFold setting
 let g:SimpylFold_docstring_preview=1
-
-" Enable folding with the spacebar
-nnoremap <space> za
 
 " airline setting
 set laststatus=2
@@ -55,44 +40,96 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-"let g:airline_theme='kalisi'
-let g:airline_theme='luna'
+"let g:airline_theme='luna'
+let g:airline_theme='gruvbox'
 let python_highlight_all=1
 if has('win32')
 	set guifont=Hermit:h14
 	set guifontwide=Microsoft_YaHei_Mono:h14
 endif
 
+" scrooloose/nerdtree setting
+map <F3> :NERDTreeToggle<CR>
+
+" tagbar setting
+noremap <F8> :TagbarToggle<CR>
+
+" vim-indent-guides setting
+noremap <F5> :IndentGuidesToggle<CR>
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_color_change_percent = 1
+let g:indent_guides_enable_on_vim_startup = 1
+silent! unmap <LEADER>ig
+autocmd WinEnter * silent! unmap <LEADER>ig
+
 " mark badwhitespace with red
 highlight BadWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-"split navigations
+" colorscheme
+let $t_ut=''
+set background=dark
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'medium'
+"let &t_SI = "\<ESC>]50;CursorShape=1\x7"
+"let &t_SR = "\<ESC>]50;CursorShape=2\x7"
+"let &t_EI = "\<ESC>]50;CursorShape=0\x7"
+
+" basic mapping
+map S :w<CR>
+map Q :q<CR>
+map R :source $MYVIMRC<CR>
+map sl :set nosplitright<CR>:vsplit<CR>
+map sr :set splitright<CR>:vsplit<CR>
+map su :set nosplitbelow<CR>:split<CR>
+map sd :set splitbelow<CR>:split<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+map <up> :res +5<CR>
+map <down> :rse -5<CR>
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
+map tt :tabe<CR>
+map tl :-tabnext<CR>
+map tr :+tabnext<CR>
+nnoremap <space> za
 
 " basic setting
 syntax on
-set backspace=indent,eol,start
+filetype on
+filetype indent on
+filetype plugin indent on
+filetype plugin on
 set number
+"set relativenumber
+set backspace=indent,eol,start
 set foldmethod=indent
 set foldlevel=99
-"set relativenumber
+set expandtab
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set cindent
 set showcmd
+set wildmenu
 set t_Co=256
 set wrap
 set linebreak
 set showmatch
+set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 set history=188
 set scrolloff=5
 set encoding=utf-8
 set clipboard=unnamed
+set autochdir
 set cursorline
+set scrolloff=6
 highlight CursorLine   cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=green guibg=NONE guifg=NONE
