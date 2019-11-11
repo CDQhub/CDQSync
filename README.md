@@ -1,0 +1,2 @@
+# SyncBasicSettings
+Linux setting sync
