@@ -9,5 +9,5 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 # mv vimrc ~/.vim/vimrc
 cp ../conf/vimrc ~/.vim/vimrc
 
-vim +PlugInstall 
 cd -
+vim +PlugInstall 
