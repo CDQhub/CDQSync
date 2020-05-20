@@ -15,9 +15,66 @@ alias ls='ls --color=auto'
 alias la='ls -ah --color=auto'
 alias ll='ls -lh --color=auto'
 alias grep='grep --color=auto'
+rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
+md () { mkdir -p "$@" && cd "$1";}
 alias hcat='/usr/bin/hadoop/software/yarn/bin/hadoop fs -text'
 alias hls='/usr/bin/hadoop/software/yarn/bin/hadoop fs -ls'
 alias hrm='/usr/bin/hadoop/software/yarn/bin/hadoop fs -rm'
 alias hyarn='/usr/bin/hadoop/software/yarn/bin/yarn'
-rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
-md () { mkdir -p "$@" && cd "$1";}
+alias ga='git add'
+alias gaa='git add --all'
+alias gapa='git add --patch'
+alias gau='git add --update'
+alias gav='git add --verbose'
+alias gap='git apply'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias gbD='git branch -D'
+alias gbl='git blame -b -w'
+alias gbnm='git branch --no-merged'
+alias gbr='git branch --remote'
+alias gc!='git commit -v --amend'
+alias gcn!='git commit -v --no-edit --amend'
+alias gca='git commit -v -a'
+alias gcmsg='git commit -m'
+alias gca!='git commit -v -a --amend'
+alias gcan!='git commit -v -a --no-edit --amend'
+alias gcans!='git commit -v -a -s --no-edit --amend'
+alias gcam='git commit -a -m'
+alias gcsm='git commit -s -m'
+alias gcb='git checkout -b'
+alias gcf='git config --list'
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gdcw='git diff --cached --word-diff'
+alias gf='git fetch'
+alias gfa='git fetch --all --prune'
+alias ggsup='git branch --set-upstream-to=origin/$(git_current_branch)'
+alias ggpull='git pull origin "$(git_current_branch)"'
+alias glog='git log --oneline --decorate --graph'
+alias ggpush='git push origin "$(git_current_branch)"'
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gfo='git fetch origin'
+alias gdct='git describe --tags $(git rev-list --tags --max-count=1)'
+alias gds='git diff --staged'
+alias gdt='git diff-tree --no-commit-id --name-only -r'
+alias gdw='git diff --word-diff'
+encode64() {
+    if [[ $# -eq 0 ]]; then
+        cat | base64
+    else
+        printf '%s' $1 | base64
+    fi
+}
+
+decode64() {
+    if [[ $# -eq 0 ]]; then
+        cat | base64 --decode
+    else
+        printf '%s' $1 | base64 --decode
+    fi
+}
+alias e64=encode64
+alias d64=decode64
