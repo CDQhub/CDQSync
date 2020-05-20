@@ -79,7 +79,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'vim-scripts/indentpython.vim'
-Plug 'fatih/vim-go', { 'tag': '*'  }
+"Plug 'fatih/vim-go', { 'tag': '*'}
 Plug 'dgryski/vim-godef'
 
 Plug 'scrooloose/syntastic'
@@ -105,9 +105,58 @@ call plug#end()
 "let g:UltiSnipsJumpForwardTrigger = '<tab>'
 "let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
+" vim-indent-guides setting
+noremap <F5> :IndentGuidesToggle<CR>
+let g:indent_guides_guide_size = 4
+let g:indent_guides_start_level = 1
+let g:indent_guides_color_change_percent = 20
+let g:indent_guides_enable_on_vim_startup = 1
+silent! unmap <LEADER>ig
+autocmd WinEnter * silent! unmap <LEADER>ig
+
 "markdown
-map <silent> <F5> <Plug>MarkdownPreview
-map <silent> <F6> <Plug>StopMarkdownPreview
+nmap <silent> <F8> <Plug>MarkdownPreview
+imap <silent> <F8> <Plug>MarkdownPreview
+nmap <silent> <F9> <Plug>StopMarkdownPreview
+imap <silent> <F9> <Plug>StopMarkdownPreview
+
+" scrooloose/nerdtree setting
+map <F10> :NERDTreeToggle<CR>
+let NERDTreeAutoCenter=1
+let NERDTreeShowHidden=0
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let NERDTreeShowBookmarks=2
+let g:nerdtree_tabs_open_on_console_startup=1
+
+" tagbar setting
+noremap <F11> :TagbarToggle<CR>
+let g:tagbar_type_go = {
+   \ 'ctagstype' : 'go',
+   \ 'kinds'     : [
+   \ 'p:package',
+   \ 'i:imports:1',
+   \ 'c:constants',
+   \ 'v:variables',
+   \ 't:types',
+   \ 'n:interfaces',
+   \ 'w:fields',
+   \ 'e:embedded',
+   \ 'm:methods',
+   \ 'r:constructor',
+   \ 'f:functions'
+   \ ],
+   \ 'sro' : '.',
+   \ 'kind2scope' : {
+   \ 't' : 'ctype',
+   \ 'n' : 'ntype'
+   \ },
+   \ 'scope2kind' : {
+   \ 'ctype' : 't',
+   \ 'ntype' : 'n'
+   \ },
+   \ 'ctagsbin'  : 'gotags',
+   \ 'ctagsargs' : '-sort -silent'
+   \ }
 
 " coc.nvim setting
 set timeoutlen=100
@@ -159,14 +208,6 @@ if has('win32')
 	set guifontwide=Microsoft_YaHei_Mono:h14
 endif
 
-" scrooloose/nerdtree setting
-map <F9> :NERDTreeToggle<CR>
-let NERDTreeAutoCenter=1
-let NERDTreeShowHidden=0
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-let NERDTreeShowBookmarks=2
-let g:nerdtree_tabs_open_on_console_startup=1
-
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -181,47 +222,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 let g:NERDTreeShowIgnoredStatus = 0
-
-" tagbar setting
-let g:tagbar_width=40 
-map <F8> :TagbarToggle<CR>
-map! <F8> <Esc>:TagbarToggle<CR>
-let g:tagbar_type_go = {
-   \ 'ctagstype' : 'go',
-   \ 'kinds'     : [
-   \ 'p:package',
-   \ 'i:imports:1',
-   \ 'c:constants',
-   \ 'v:variables',
-   \ 't:types',
-   \ 'n:interfaces',
-   \ 'w:fields',
-   \ 'e:embedded',
-   \ 'm:methods',
-   \ 'r:constructor',
-   \ 'f:functions'
-   \ ],
-   \ 'sro' : '.',
-   \ 'kind2scope' : {
-   \ 't' : 'ctype',
-   \ 'n' : 'ntype'
-   \ },
-   \ 'scope2kind' : {
-   \ 'ctype' : 't',
-   \ 'ntype' : 'n'
-   \ },
-   \ 'ctagsbin'  : 'gotags',
-   \ 'ctagsargs' : '-sort -silent'
-   \ }
-
-" vim-indent-guides setting
-noremap <F5> :IndentGuidesToggle<CR>
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_color_change_percent = 1
-let g:indent_guides_enable_on_vim_startup = 1
-silent! unmap <LEADER>ig
-autocmd WinEnter * silent! unmap <LEADER>ig
 
 " mark badwhitespace with red
 highlight BadWhitespace ctermbg=red guibg=red
@@ -245,7 +245,7 @@ endif
 "let &t_EI = "\<ESC>]50;CursorShape=0\x7"
 
 " vim-go 
-"let g:go_version_warning = 0
+let g:go_version_warning = 0
 let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
