@@ -2,9 +2,8 @@
 set nocompatible
 syntax on
 filetype on
-filetype indent on
-filetype plugin indent on
-filetype plugin on
+"filetype indent on
+"filetype plugin on
 set number
 "set relativenumber
 set backspace=indent,eol,start
@@ -33,6 +32,17 @@ set autochdir
 set cursorline
 set scrolloff=6
 
+" scroll lines that are too long just slow when a line is too long
+set synmaxcol=1000
+set ttyfast
+set ttyscroll=3
+set lazyredraw
+
+" undo file. Note: you must create ~/.vim/undo first
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000
+
 " basic mapping
 map S :w<CR>
 map Q :q<CR>
@@ -53,57 +63,55 @@ map tt :tabe<CR>
 map tl :-tabnext<CR>
 map tr :+tabnext<CR>
 nnoremap <space> za
+let mapleader=","
+cnoremap w!! w !sudo tee % >/dev/null
 
 call plug#begin('~/.vim/plugged')
 
+" theme
 Plug 'morhetz/gruvbox'
-"Plug 'KeitaNakamura/neodark.vim'
 "Plug 'crusoexia/vim-monokai'
 "Plug 'acarapetis/vim-colors-github'
-"Plug 'rakr/vim-one'
 Plug 'vim-airline/vim-airline'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'mhinz/vim-startify'
 
+" markdown
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 
+" dir plugin
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
 
-Plug 'tmhedberg/SimpylFold'
+" text crary
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
-"Plug 'Valloric/YouCompleteMe'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/vim-easy-align'
+Plug 'itchyny/vim-cursorword'
+Plug 'lfv89/vim-interestingwords'
 
+" code write
 Plug 'vim-scripts/indentpython.vim'
-"Plug 'fatih/vim-go', { 'tag': '*'}
+Plug 'fatih/vim-go', { 'tag': '*'}
 Plug 'dgryski/vim-godef'
-
+Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
 Plug 'scrooloose/syntastic'
 Plug 'elzr/vim-json'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
-Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less', 'go'] }
-Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
+" this plug for html
 Plug 'mattn/emmet-vim'
 
-call plug#end()
+" code crary
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tmhedberg/SimpylFold'
+Plug 'Chiel92/vim-autoformat'
+Plug 'preservim/nerdcommenter'
+Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less', 'go'] }
 
-" YouCompleteMe setting
-"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"set completeopt-=preview
-"nnoremap <C-g> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"let g:ycm_key_invoke_completion='<C-a>'
-"let g:ycm_key_list_select_completion = ['<C-n>', '<space>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType = '<C-n>'
-"let g:UltiSnipsExpandTrigger = '<tab>'
-"let g:UltiSnipsJumpForwardTrigger = '<tab>'
-"let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+call plug#end()
 
 " vim-indent-guides setting
 noremap <F5> :IndentGuidesToggle<CR>
@@ -112,13 +120,22 @@ let g:indent_guides_start_level = 1
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 1
 silent! unmap <LEADER>ig
-autocmd WinEnter * silent! unmap <LEADER>ig
 
-"markdown
+" vim-easy-align setting
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" markdown
 nmap <silent> <F8> <Plug>MarkdownPreview
 imap <silent> <F8> <Plug>MarkdownPreview
 nmap <silent> <F9> <Plug>StopMarkdownPreview
 imap <silent> <F9> <Plug>StopMarkdownPreview
+
+" vim-interestingwords setting
+nnoremap <silent> <leader>f :call InterestingWords('n')<cr>
+nnoremap <silent> <leader>F :call UncolorAllWords()<cr>
+nnoremap <silent> n :call WordNavigation('forward')<cr>
+nnoremap <silent> N :call WordNavigation('backward')<cr>
 
 " scrooloose/nerdtree setting
 map <F10> :NERDTreeToggle<CR>
@@ -128,49 +145,24 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=2
 let g:nerdtree_tabs_open_on_console_startup=1
 
-" tagbar setting
-noremap <F11> :TagbarToggle<CR>
-let g:tagbar_type_go = {
-   \ 'ctagstype' : 'go',
-   \ 'kinds'     : [
-   \ 'p:package',
-   \ 'i:imports:1',
-   \ 'c:constants',
-   \ 'v:variables',
-   \ 't:types',
-   \ 'n:interfaces',
-   \ 'w:fields',
-   \ 'e:embedded',
-   \ 'm:methods',
-   \ 'r:constructor',
-   \ 'f:functions'
-   \ ],
-   \ 'sro' : '.',
-   \ 'kind2scope' : {
-   \ 't' : 'ctype',
-   \ 'n' : 'ntype'
-   \ },
-   \ 'scope2kind' : {
-   \ 'ctype' : 't',
-   \ 'ntype' : 'n'
-   \ },
-   \ 'ctagsbin'  : 'gotags',
-   \ 'ctagsargs' : '-sort -silent'
-   \ }
+" vim-startify setting
+let g:startify_change_to_dir=0
+let g:startify_session_autoload=1
+
+" nerdcommenter setting
+let g:NERDSpaceDelims = 1
+let g:NERDTrimTrailingWhitespace = 1
 
 " coc.nvim setting
+set hidden
 set timeoutlen=100
 set cmdheight=2
-inoremap <C-d> <Esc>:set cmdheight=2<CR>a
-inoremap <C-t> <Esc>:set cmdheight=10<CR>a
-nnoremap <C-d> :set cmdheight=2<CR>
-nnoremap <C-t> :set cmdheight=10<CR>
 set updatetime=1000
 set shortmess+=c
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -188,8 +180,6 @@ function! s:show_documentation()
         call CocAction('doHover')
     endif
 endfunction
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')"
 
 " SimplyFold setting
 let g:SimpylFold_docstring_preview=1
@@ -233,16 +223,6 @@ set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'medium'
-if has("termguicolors")
-    " fix bug for vim
-    set t_8f=^[[38;2;%lu;%lu;%lum
-    set t_8b=^[[48;2;%lu;%lu;%lum
-    " enable true color
-    set termguicolors
-endif
-"let &t_SI = "\<ESC>]50;CursorShape=1\x7"
-"let &t_SR = "\<ESC>]50;CursorShape=2\x7"
-"let &t_EI = "\<ESC>]50;CursorShape=0\x7"
 
 " vim-go 
 let g:go_version_warning = 0

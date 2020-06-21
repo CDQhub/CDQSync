@@ -8,15 +8,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="ys"
-#ZSH_THEME="agnoster"
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+#ZSH_THEME="ys"
+ZSH_THEME="bira"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -56,12 +49,9 @@ ZSH_THEME="ys"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
   sudo
+  tmux
   git
   wd
   history
@@ -114,7 +104,6 @@ export LANG=en_US.UTF-8
 alias cp='cp -i'
 alias rm='rm -i'
 alias mv='mv -i'
-alias vi='vim'
 alias cls='clear'
 alias clsls='clear && ls'
 alias ls='ls --color=auto'
@@ -129,3 +118,4 @@ function rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
 function md () { mkdir -p "$@" && cd "$1";}
 
 export PATH
+tmux
