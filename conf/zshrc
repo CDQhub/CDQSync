@@ -118,4 +118,3 @@ function rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
 function md () { mkdir -p "$@" && cd "$1";}
 
 export PATH
-tmux
