@@ -16,5 +16,9 @@ echo "**********************" >&2
 ./bin/sync_zshrc.sh
 echo "finish sync zshrc!" >&2
 echo "**********************" >&2
+# sync tmux
+./bin/sync_tmux.sh
+echo "finish sync tmux!" >&2
+echo "**********************" >&2
 
 cd -

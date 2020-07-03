@@ -105,7 +105,6 @@ alias cp='cp -i'
 alias rm='rm -i'
 alias mv='mv -i'
 alias cls='clear'
-alias clsls='clear && ls'
 alias ls='ls --color=auto'
 alias la='ls -a --color=auto'
 alias ll='ls -hl --color=auto'
@@ -117,4 +116,10 @@ alias hyarn='/usr/bin/hadoop/software/yarn/bin/yarn'
 function rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
 function md () { mkdir -p "$@" && cd "$1";}
 
-export PATH
+export MYVIMRC=~/.vim/vimrc
+export GO111MODULE=on
+export GOPATH=~/ToolsGoPath
+export GOPROXY=https://goproxy.io
+export GOBIN=$GOPATH/bin
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOPATH/bin:~/Software
