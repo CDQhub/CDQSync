@@ -117,6 +117,7 @@ function rmt () { mv "$@" ~/.trash && echo "已放置回收站\n"; }
 function md () { mkdir -p "$@" && cd "$1";}
 
 export MYVIMRC=~/.vim/vimrc
+export TERM=xterm-256color
 export GO111MODULE=on
 export GOPATH=~/ToolsGoPath
 export GOPROXY=https://goproxy.io
