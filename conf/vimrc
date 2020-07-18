@@ -70,7 +70,8 @@ cnoremap w!! w !sudo tee % >/dev/null
 call plug#begin('~/.vim/plugged')
 
 " theme
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 "Plug 'crusoexia/vim-monokai'
 "Plug 'acarapetis/vim-colors-github'
 Plug 'vim-airline/vim-airline'
@@ -192,7 +193,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "let g:airline_theme='luna'
-let g:airline_theme='gruvbox'
+let g:airline_theme='onedark'
 let python_highlight_all=1
 if has('win32')
 	set guifont=Hermit:h14
@@ -221,7 +222,7 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " colorscheme
 let $t_ut=''
 set background=dark
-colorscheme gruvbox
+colorschem onedark
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'medium'
 
