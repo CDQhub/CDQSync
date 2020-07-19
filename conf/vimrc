@@ -193,7 +193,7 @@ let g:SimpylFold_docstring_preview=1
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "let g:airline_theme='luna'
 let g:airline_theme='onedark'
@@ -226,8 +226,10 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 let $t_ut=''
 set background=dark
 colorschem onedark
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_contrast_light = 'medium'
+let g:one_allow_italics = 1
+
+" auto-pairs
+let g:AutoPairsMapBS = 0
 
 " vim-go 
 let g:go_version_warning = 0
