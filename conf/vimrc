@@ -61,8 +61,11 @@ map <down> :rse -5<CR>
 map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 map tt :tabe<CR>
-map tl :-tabnext<CR>
-map tr :+tabnext<CR>
+nnoremap <silent> bl :ls<CR>
+noremap <silent> bn :new<CR>
+noremap <silent> bl :bnext<CR>
+noremap <silent> br :bprevious<CR>
+noremap <silent> bd :bdelete<CR>
 nnoremap <space> za
 let mapleader=","
 cnoremap w!! w !sudo tee % >/dev/null
