@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 WORKDIR=$(dirname $(readlink -f "$0"))
 cd $WORKDIR
 
