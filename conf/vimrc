@@ -1,9 +1,7 @@
 " basic setting
 set nocompatible
 syntax on
-filetype on
-"filetype indent on
-"filetype plugin on
+filetype plugin indent on 
 set number
 "set relativenumber
 set backspace=indent,eol,start
@@ -24,13 +22,12 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
-set history=188
+set history=88
 set scrolloff=5
 set encoding=utf-8
 set clipboard=unnamed
 set autochdir
 set cursorline
-set scrolloff=6
 
 " scroll lines that are too long just slow when a line is too long
 set synmaxcol=1000
@@ -41,7 +38,7 @@ set lazyredraw
 " undo file. Note: you must create ~/.vim/undo first
 set undofile
 set undodir=~/.vim/undo
-set undolevels=1000
+set undolevels=100
 
 " basic mapping
 map S :w<CR>
@@ -88,7 +85,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " text crary
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/vim-cursorword'
@@ -117,8 +113,8 @@ call plug#end()
 
 " vim-indent-guides setting
 noremap <F5> :IndentGuidesToggle<CR>
-let g:indent_guides_guide_size = 4
-let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 1
 silent! unmap <LEADER>ig
@@ -157,7 +153,6 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " coc.nvim setting
 set hidden
-set timeoutlen=100
 set updatetime=1000
 set shortmess+=c
 inoremap <silent><expr> <TAB>
@@ -216,16 +211,13 @@ let g:NERDTreeShowIgnoredStatus = 0
 
 " mark badwhitespace with red
 highlight BadWhitespace ctermbg=red guibg=red
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
 
 " colorscheme
 let $t_ut=''
 set background=dark
 colorschem onedark
 let g:one_allow_italics = 1
-
-" auto-pairs
-let g:AutoPairsMapBS = 0
 
 " vim-go 
 let g:go_version_warning = 0
