@@ -54,29 +54,34 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 inoremap jj <esc>
 map <up> :res +5<CR>
-map <down> :rse -5<CR>
+map <down> :res -5<CR>
 map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 nnoremap <C-T> :tabedit<CR>
 nnoremap <silent> tr :tabNext<CR>
 nnoremap <silent> tl :tabs<CR>
-nnoremap <space> za
-let mapleader=","
+let mapleader=" "
 cnoremap w!! w !sudo tee % >/dev/null
 
+" mark badwhitespace with red
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
+
+" plugin setting
 call plug#begin('~/.vim/plugged')
 
 " theme
-"Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
 "Plug 'crusoexia/vim-monokai'
 "Plug 'acarapetis/vim-colors-github'
+"Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-startify'
 
 " markdown
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
+Plug 'dhruvasagar/vim-table-mode'
 
 " dir plugin
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -92,7 +97,7 @@ Plug 'lfv89/vim-interestingwords'
 
 " code write
 Plug 'vim-scripts/indentpython.vim'
-Plug 'fatih/vim-go', { 'tag': '*'}
+"Plug 'fatih/vim-go', { 'tag': '*'}
 Plug 'dgryski/vim-godef'
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
@@ -115,7 +120,7 @@ call plug#end()
 noremap <F5> :IndentGuidesToggle<CR>
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
-let g:indent_guides_color_change_percent = 20
+let g:indent_guides_color_change_percent = 50
 let g:indent_guides_enable_on_vim_startup = 1
 silent! unmap <LEADER>ig
 
@@ -123,11 +128,17 @@ silent! unmap <LEADER>ig
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+" SimplyFold setting
+let g:SimpylFold_docstring_preview=1
+
 " markdown
-nmap <silent> <F8> <Plug>MarkdownPreview
-imap <silent> <F8> <Plug>MarkdownPreview
-nmap <silent> <F9> <Plug>StopMarkdownPreview
-imap <silent> <F9> <Plug>StopMarkdownPreview
+nmap <silent> <leader>mp <Plug>MarkdownPreview
+imap <silent> <leader>mp <Plug>MarkdownPreview
+nmap <silent> <leader>smp <Plug>StopMarkdownPreview
+imap <silent> <leader>smp <Plug>StopMarkdownPreview
+
+" vim-table-mode setting
+let g:table_mode_corner='|'
 
 " vim-interestingwords setting
 nnoremap <silent> <leader>f :call InterestingWords('n')<cr>
@@ -136,20 +147,37 @@ nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 
 " scrooloose/nerdtree setting
-map <F10> :NERDTreeToggle<CR>
+map <leader>nt :NERDTreeToggle<CR>
 let NERDTreeAutoCenter=1
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=2
 let g:nerdtree_tabs_open_on_console_startup=1
 
-" vim-startify setting
-let g:startify_change_to_dir=0
-let g:startify_session_autoload=1
+" nerdtree-git-plugin
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",    
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+let g:NERDTreeShowIgnoredStatus = 0
 
 " nerdcommenter setting
 let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
+
+" vim-startify setting
+let g:startify_change_to_dir=0
+let g:startify_fortune_use_unicode=1
+let g:startify_session_autoload=1
 
 " coc.nvim setting
 set hidden
@@ -177,13 +205,22 @@ function! s:show_documentation()
     endif
 endfunction
 
-" SimplyFold setting
-let g:SimpylFold_docstring_preview=1
-
 " airline setting
 set laststatus=2
+let g:airline_symbols_ascii = 1
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#show_line_numbers = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
+let g:airline#extensions#branch#displayed_head_limit = 10
+let g:airline#extensions#branch#sha1_len = 8
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#bufferline#overwrite_variables = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#keymap#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "let g:airline_theme='luna'
@@ -193,31 +230,6 @@ if has('win32')
 	set guifont=Hermit:h14
 	set guifontwide=Microsoft_YaHei_Mono:h14
 endif
-
-" nerdtree-git-plugin
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-let g:NERDTreeShowIgnoredStatus = 0
-
-" mark badwhitespace with red
-highlight BadWhitespace ctermbg=red guibg=red
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
-
-" colorscheme
-let $t_ut=''
-set background=dark
-colorschem onedark
-let g:one_allow_italics = 1
 
 " vim-go 
 let g:go_version_warning = 0
@@ -234,3 +246,10 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_generate_tags = 1
 let g:godef_split=2
+
+" colorscheme
+let $t_ut=''
+set background=dark
+colorschem onedark
+let g:one_allow_italics = 1
+
