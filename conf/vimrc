@@ -28,6 +28,7 @@ set encoding=utf-8
 set clipboard=unnamed
 set autochdir
 set cursorline
+set paste
 
 " scroll lines that are too long just slow when a line is too long
 set synmaxcol=1000
@@ -60,7 +61,7 @@ map <right> :vertical resize+5<CR>
 nnoremap <C-T> :tabedit<CR>
 nnoremap <silent> tr :tabNext<CR>
 nnoremap <silent> tl :tabs<CR>
-let mapleader=","
+let mapleader=";"
 cnoremap w!! w !sudo tee % >/dev/null
 
 " mark badwhitespace with red
