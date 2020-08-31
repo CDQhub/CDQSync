@@ -127,4 +127,5 @@ export GOPATH=~/ToolsGoPath
 export GOPROXY=https://goproxy.io
 export GOBIN=$GOPATH/bin
 export GOROOT=/usr/local/go
+export GOTMPDIR=~/ToolsGoPath/tmp
 export PATH=$PATH:$GOPATH/bin:~/Software
