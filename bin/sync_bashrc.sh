@@ -10,5 +10,9 @@ cd $WORKDIR
 echo "cp my bashrc to ~/.bashrc" >&2
 cp ../conf/bashrc ~/.bashrc
 
-source ~/.bashrc
+## for env settings
+mkdir ${HOME}/Software 2>/dev/null
+mkdir -p ${HOME}/ToolsGoPath/tmp 2>/dev/null
+
+source ${HOME}/.bashrc
 cd -

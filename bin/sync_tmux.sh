@@ -24,4 +24,6 @@ git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
 cp ../conf/tmux.conf.local ~/.tmux.conf.local
 
+mkdir -p ${HOME}/.tmp/tmux_tmp 2>/dev/null
+
 cd -

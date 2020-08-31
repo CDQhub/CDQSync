@@ -24,5 +24,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 echo "cp my zshrc to ~/.zshrc" >&2
 cp ../conf/zshrc ~/.zshrc
 
+## for env settings
+mkdir ${HOME}/Software 2>/dev/null
+mkdir -p ${HOME}/ToolsGoPath/tmp 2>/dev/null
+
 cd -
-source ~/.zshrc
+source ${HOME}/.zshrc
