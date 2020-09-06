@@ -96,6 +96,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/vim-cursorword'
 Plug 'lfv89/vim-interestingwords'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " code write
 Plug 'fatih/vim-go', { 'tag': '*'}
@@ -157,6 +159,14 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=2
 let g:nerdtree_tabs_open_on_console_startup=1
 
+" fzf settings
+" See `man fzf-tmux` for available options
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+endif
+
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",    
@@ -195,7 +205,6 @@ let g:coc_global_extensions = [
     \ 'coc-go',
     \ 'coc-phpls',
     \ 'coc-snippets',
-    \ 'coc-stylelint',
     \ 'coc-syntax',
     \ 'coc-todolist',
     \ 'coc-translator',
