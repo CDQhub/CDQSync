@@ -1,0 +1,217 @@
+" -- basic setting -------------------------------------------------------------
+set nocompatible
+set encoding=utf-8
+syntax on
+filetype plugin indent on
+set foldmethod=indent
+set foldlevel=99
+set autoindent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smarttab
+set history=88
+set clipboard=unnamed
+set autochdir
+
+" -- display -------------------------------------------------------------------
+set title       " change the terminal title
+set lazyredraw  " do not redraw when executing macros
+set report=0    " always report changes
+set cursorline  " highlight current line
+if has("autocmd")
+  augroup vim
+    autocmd!
+    autocmd filetype vim set textwidth=80
+  augroup END
+  augroup windows
+    autocmd!
+    autocmd VimResized * :wincmd = " resize splits when the window is resized
+  augroup END
+endif
+if has("gui_running")
+  set cursorcolumn  " highlight current column
+endif
+if exists("+relativenumber")
+  if v:version >= 400
+    set number
+  endif
+  set relativenumber  " show relative line numbers
+  set numberwidth=3   " narrow number column
+  " cycles between relative / absolute / no numbering
+  if v:version >= 400
+    function! RelativeNumberToggle()
+      if (&number == 1 && &relativenumber == 1)
+        set nonumber
+        set relativenumber relativenumber?
+      elseif (&number == 0 && &relativenumber == 1)
+        set norelativenumber
+        set number number?
+      elseif (&number == 1 && &relativenumber == 0)
+        set norelativenumber
+        set nonumber number?
+      else
+        set number
+        set relativenumber relativenumber?
+      endif
+    endfunc
+  else
+    function! RelativeNumberToggle()
+      if (&relativenumber == 1)
+        set number number?
+      elseif (&number == 1)
+        set nonumber number?
+      else
+        set relativenumber relativenumber?
+      endif
+    endfunc
+  endif
+  nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+else                  " fallback
+  set number          " show line numbers
+  " inverts numbering
+  nnoremap <silent> <leader>n :set number! number?<CR>
+endif
+set showmode      " always show the current editing mode
+set linebreak     " yet if enabled break at word boundaries
+set showcmd     " show partial command line (default)
+set cmdheight=1 " height of the command line
+set wrap
+set shortmess=astT  " abbreviate messages
+set shortmess+=c
+set backspace=indent,eol,start
+set number
+"set relativenumber
+set scrolloff=5
+
+" -- colorscheme -------------------------------------------------------------
+let $t_ut=''
+set t_Co=256
+set term=xterm
+set background=dark
+colorschem elflord
+
+" -- searching -----------------------------------------------------------------
+set wrapscan    " wrap around when searching
+set incsearch   " show match results while typing search pattern
+if (&t_Co > 2 || has("gui_running"))
+  set hlsearch  " highlight search terms
+endif
+set showmatch
+set ignorecase
+set smartcase
+
+" -- command mode --------------------------------------------------------------
+set wildmenu                    " enable tab completion menu
+set wildmode=longest:full,full  " complete till longest common string, then full
+set wildignore+=.git            " ignore the .git directory
+set wildignore+=*.DS_Store      " ignore Mac finder/spotlight crap
+if exists ("&wildignorecase")
+  set wildignorecase
+endif
+
+" -- scroll lines that are too long just slow when a line is too long ----------
+set synmaxcol=1000
+set ttyfast
+set ttyscroll=3
+set lazyredraw
+
+" -- undo file. Note: you must create ~/.vim/undo first  ------------------------
+set undofile
+set undodir=~/.vim/undo
+set undolevels=100
+
+" -- expand filenames with forward slash ----------------------------------------
+if exists("+shellslash")
+  set shellslash
+endif
+
+" -- sudo then write ------------------------------------------------------------
+cabbrev w!! w !sudo tee % >/dev/null
+
+" -- basic mapping --------------------------------------------------------------
+map S :w<CR>
+map Q :q<CR>
+map R :source $MYVIMRC<CR>
+map sl :set nosplitright<CR>:vsplit<CR>
+map sr :set splitright<CR>:vsplit<CR>
+map su :set nosplitbelow<CR>:split<CR>
+map sd :set splitbelow<CR>:split<CR>
+cnoremap <C-a> <home>
+cnoremap <C-e> <end>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+noremap <silent> <leader>y "+y
+noremap <silent> <leader>Y "+Y
+noremap <silent> <leader>p "+p
+noremap <silent> <leader>P "+P
+inoremap jj <esc>
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
+nnoremap <C-T> :tabedit<CR>
+nnoremap <silent> tr :tabNext<CR>
+nnoremap <silent> tl :tabs<CR>
+let mapleader=";"
+let maplocalleader=";"
+cnoremap w!! w !sudo tee % >/dev/null
+
+" make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
+if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
+  execute "set <xUp>=\e[1;*A"
+  execute "set <xDown>=\e[1;*B"
+  execute "set <xRight>=\e[1;*C"
+  execute "set <xLeft>=\e[1;*D"
+  execute "set <xHome>=\e[1;*H"
+  execute "set <xEnd>=\e[1;*F"
+  execute "set <Insert>=\e[2;*~"
+  execute "set <Delete>=\e[3;*~"
+  execute "set <PageUp>=\e[5;*~"
+  execute "set <PageDown>=\e[6;*~"
+  execute "set <xF1>=\e[1;*P"
+  execute "set <xF2>=\e[1;*Q"
+  execute "set <xF3>=\e[1;*R"
+  execute "set <xF4>=\e[1;*S"
+  execute "set <F5>=\e[15;*~"
+  execute "set <F6>=\e[17;*~"
+  execute "set <F7>=\e[18;*~"
+  execute "set <F8>=\e[19;*~"
+  execute "set <F9>=\e[20;*~"
+  execute "set <F10>=\e[21;*~"
+  execute "set <F11>=\e[23;*~"
+  execute "set <F12>=\e[24;*~"
+endif
+
+" -- backup and swap files -----------------------------------------------------
+set backup      " enable backup files
+set writebackup " enable backup files
+set swapfile    " enable swap files (useful when loading huge files)
+let s:vimdir=$HOME . "/.vim"
+let &backupdir=s:vimdir . "/backup"  " backups location
+let &directory=s:vimdir . "/tmp"     " swap location
+if exists("*mkdir")
+  if !isdirectory(s:vimdir)
+    call mkdir(s:vimdir, "p")
+  endif
+  if !isdirectory(&backupdir)
+    call mkdir(&backupdir, "p")
+  endif
+  if !isdirectory(&directory)
+    call mkdir(&directory, "p")
+  endif
+endif
+set backupskip+=*.tmp " skip backup for *.tmp
+if has("persistent_undo")
+  let &undodir=&backupdir
+  set undofile  " enable persistent undo
+endif
+let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
+
+
+" -- mark badwhitespace with red -----------------------------------------------
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/

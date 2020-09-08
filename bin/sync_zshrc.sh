@@ -1,8 +1,7 @@
 #!/bin/bash
 
-set -e
-WORKDIR=$(dirname $(readlink -f "$0"))
-cd $WORKDIR
+set -ex
+WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 if [ ! -x /usr/bin/zsh ];then
     echo "Can't find zsh, then will install zsh firstly" >&2
@@ -14,19 +13,26 @@ if [ ! -d ~/.oh-my-zsh ];then
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-# install autosuggestions and syntax_highlignt
-git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+if [[ -d ${HOME}/.oh-my-zsh ]]; then
+    echo "install zsh plugins"
+    # install autosuggestions and syntax_highlignt
+    [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ] && git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
 
-# get zshrc
-# wget https://raw.githubusercontent.com/CDQhub/CDQSync/master/conf/zshrc
-# mv zshrc .zshrc
-echo "cp my zshrc to ~/.zshrc" >&2
-cp ../conf/zshrc ~/.zshrc
+if [[ ! -f ${HOME}/.zshrc ]]; then
+    # get zshrc
+    echo "cp my zshrc to ~/.zshrc" >&2
+    cp ${WORKDIR}/zsh/zshrc ${HOME}/.zshrc
+fi
+
+[ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config
+echo "cp my config file to ~/.config" >&2
+cp -f ${WORKDIR}/config/*.conf ${HOME}/.config
 
 ## for env settings
-mkdir ${HOME}/Software 2>/dev/null
-mkdir -p ${HOME}/ToolsGoPath/tmp 2>/dev/null
+[ ! -d ${HOME}/Software ] && mkdir ${HOME}/Software
+[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
+[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}
 
-cd -
 source ${HOME}/.zshrc

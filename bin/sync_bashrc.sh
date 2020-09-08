@@ -1,18 +1,21 @@
 #!/bin/bash
 
 set -e
-WORKDIR=$(dirname $(readlink -f "$0"))
-cd $WORKDIR
+WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 # get bashrc
-# wget https://raw.githubusercontent.com/CDQhub/CDQSync/master/conf/bashrc
-# mv bashrc .bashrc
-echo "cp my bashrc to ~/.bashrc" >&2
-cp ../conf/bashrc ~/.bashrc
+if [[ ! -f ${HOME}/.bashrc ]]; then
+    echo "cp my bashrc to ~/.bashrc" >&2
+    cp ${WORKDIR}/bash/bashrc ~/.bashrc
+fi
+
+echo "cp my config file to ~/.config" >&2
+[ -d ${HOME}/.config ] && mkdir ${HOME}/.config
+cp -f ${WORKDIR}/config/* ${HOME}/.config
 
 ## for env settings
-mkdir ${HOME}/Software 2>/dev/null
-mkdir -p ${HOME}/ToolsGoPath/tmp 2>/dev/null
+[ ! -d ${HOME}/Software ] && mkdir ${HOME}/Software
+[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
+[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}
 
 source ${HOME}/.bashrc
-cd -
