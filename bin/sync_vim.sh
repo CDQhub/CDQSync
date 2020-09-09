@@ -23,4 +23,4 @@ fi
 
 echo "cp my vimrc to ~/.vim/vimrc" >&2
 cp ${WORKDIR}/vim/vimrc ${HOME}/.vim/vimrc
-cp ${WORKDIR}/vim/coc-settings/json ${HOME}/.vim/coc-settings.json
+cp ${WORKDIR}/vim/coc-settings.json ${HOME}/.vim/coc-settings.json
