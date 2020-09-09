@@ -2,7 +2,7 @@
 # @Author      : caodaqian
 # @since       : 2020-09-09 10:41:33
 # @LastEditors : caodaqian
-# @lastTime    : 2020-09-09 11:00:40
+# @lastTime    : 2020-09-09 11:19:38
 # @Description : .zshrc
 ###
 
@@ -55,14 +55,16 @@ source $ZSH/oh-my-zsh.sh
 #bindkey '^R' history-incremental-search-backward
 #bindkey '^U' backward-kill-line
 
-# default env, alias and locale
-[[ -f ${HOME}/.bash_profile ]] && source ${HOME}/.bash_profile
+# User locale config
+[ -f ${HOME}/.config/locale.conf ] && . ${HOME}/.config/locale.conf
 
-# user alias
+# User specific aliases and functions
+[ -f ${HOME}/.config/alias.conf ] && . ${HOME}/.config/alias.conf
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# user env
+# env config
+[ -f ${HOME}/.config/env.conf ] && . ${HOME}/.config/env.conf
 export DEFAULT_USER=$USER
 export MANPATH="/usr/local/man:$MANPATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id"

@@ -11,7 +11,14 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-[[ -f ${HOME}/.bash_profile ]] && source ${HOME}/.bash_profile
+# User locale config
+[ -f ${HOME}/.config/locale.conf ] && . ${HOME}/.config/locale.conf
+
+# User specific aliases and functions
+[ -f ${HOME}/.config/alias.conf ] && . ${HOME}/.config/alias.conf
+
+# env config
+[ -f ${HOME}/.config/env.conf ] && . ${HOME}/.config/env.conf
 
 ## fzf config
 [ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
