@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 #####
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:58

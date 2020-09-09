@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 #####
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:26
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:28:55
+## @lastTime    : 2020-09-09 14:09:03
 ## @Description : sync bashrc and mkdir user tmp dir
 ######
 
