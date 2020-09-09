@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:26
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:20:45
+## @lastTime    : 2020-09-09 11:28:55
 ## @Description : sync bashrc and mkdir user tmp dir
 ######
 
@@ -17,7 +17,7 @@ if [[ ! -f ${HOME}/.bashrc ]]; then
 fi
 
 echo "cp my config file to ~/.config" >&2
-[ -d ${HOME}/.config ] && mkdir ${HOME}/.config
+[ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config
 cp -f ${WORKDIR}/config/* ${HOME}/.config
 
 ## for env settings

@@ -2,7 +2,7 @@
 # @Author      : caodaqian
 # @since       : 2020-09-09 10:41:33
 # @LastEditors : caodaqian
-# @lastTime    : 2020-09-09 11:19:38
+# @lastTime    : 2020-09-09 13:56:59
 # @Description : .zshrc
 ###
 
@@ -14,7 +14,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="ys"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # zsh features switch
 CASE_SENSITIVE="false"

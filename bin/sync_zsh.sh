@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/bin/zsh
 #####
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:58
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:21:52
+## @lastTime    : 2020-09-09 13:57:42
 ## @Description : sync zshrc and mkdir user tmp dir
 ######
 
-set -ex
+set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 if [ ! -x /usr/bin/zsh ]; then
@@ -25,6 +25,7 @@ if [[ -d ${HOME}/.oh-my-zsh ]]; then
     # install autosuggestions and syntax_highlignt
     [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ] && git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    [ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
 if [[ ! -f ${HOME}/.zshrc ]]; then

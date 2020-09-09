@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 #####
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:46:42
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 10:46:55
+## @lastTime    : 2020-09-09 11:30:57
 ## @Description : sync vimrc and mkdir .vim/*
 ######
 
