@@ -3,8 +3,8 @@
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:58
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:21:01
-## @Description : sync zshrc and bash_profile
+## @lastTime    : 2020-09-09 11:21:52
+## @Description : sync zshrc and mkdir user tmp dir
 ######
 
 set -ex

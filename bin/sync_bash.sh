@@ -4,7 +4,7 @@
 ## @since       : 2020-09-09 10:45:26
 ## @LastEditors : caodaqian
 ## @lastTime    : 2020-09-09 11:20:45
-## @Description : sync bashrc and bash_profile
+## @Description : sync bashrc and mkdir user tmp dir
 ######
 
 set -e
