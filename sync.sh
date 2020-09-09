@@ -1,4 +1,11 @@
 #!/bin/bash
+#####
+## @Author      : caodaqian
+## @since       : 2020-09-09 10:32:02
+## @LastEditors : caodaqian
+## @lastTime    : 2020-09-09 10:32:23
+## @Description : sync all in one
+######
 
 WORKDIR=$(dirname $(readlink -f "$0"))
 cd $WORKDIR
@@ -19,6 +26,15 @@ echo "**********************" >&2
 # sync tmux
 ./bin/sync_tmux.sh
 echo "finish sync tmux!" >&2
+echo "**********************" >&2
+# sync git
+./bin/sync_git.sh
+echo "finish sync git!" >&2
+echo "**********************" >&2
+# install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+${HOME}/.fzf/install
+echo "finish install fzf!" >&2
 echo "**********************" >&2
 
 cd -

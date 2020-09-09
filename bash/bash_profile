@@ -1,0 +1,22 @@
+###
+# @Author      : caodaqian
+# @since       : 2020-09-09 10:39:06
+# @LastEditors : caodaqian
+# @lastTime    : 2020-09-09 10:42:23
+# @Description : .bash_profile
+###
+
+# User locale config
+if [ -f ${HOME}/.config/locale.conf ]; then
+    . ${HOME}/.config/locale.conf
+fi
+
+# User specific aliases and functions
+if [ -f ${HOME}/.config/alias.conf ]; then
+    . ${HOME}/.config/alias.conf
+fi
+
+# env config
+if [ -f ${HOME}/.config/env.conf ]; then
+    . ${HOME}/.config/env.conf
+fi

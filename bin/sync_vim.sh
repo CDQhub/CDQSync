@@ -1,9 +1,16 @@
 #!/bin/bash
+#####
+## @Author      : caodaqian
+## @since       : 2020-09-09 10:46:42
+## @LastEditors : caodaqian
+## @lastTime    : 2020-09-09 10:46:55
+## @Description : sync vimrc and mkdir .vim/*
+######
 
 set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
-if [ ! -f ${HOME}/.vim/autoload/plug.vim ];then
+if [ ! -f ${HOME}/.vim/autoload/plug.vim ]; then
     echo "plug.vim is not exists, then will install plug.vim first" >&2
     curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi

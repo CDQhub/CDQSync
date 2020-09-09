@@ -1,14 +1,21 @@
 #!/bin/bash
+#####
+## @Author      : caodaqian
+## @since       : 2020-09-09 10:45:58
+## @LastEditors : caodaqian
+## @lastTime    : 2020-09-09 11:01:57
+## @Description : sync zshrc and bash_profile
+######
 
 set -ex
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
-if [ ! -x /usr/bin/zsh ];then
+if [ ! -x /usr/bin/zsh ]; then
     echo "Can't find zsh, then will install zsh firstly" >&2
     sudo yum install zsh -y
 fi
 
-if [ ! -d ~/.oh-my-zsh ];then
+if [ ! -d ~/.oh-my-zsh ]; then
     echo "Can't find .oh-my-zsh, then will install oh-my-zsh" >&2
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
@@ -24,6 +31,12 @@ if [[ ! -f ${HOME}/.zshrc ]]; then
     # get zshrc
     echo "cp my zshrc to ~/.zshrc" >&2
     cp ${WORKDIR}/zsh/zshrc ${HOME}/.zshrc
+fi
+
+# get bash_profile
+if [[ ! -f ${HOME}/.bash_profile ]]; then
+    echo "cp my bash_profile to ~/.bash_profile" >&2
+    cp ${WORKDIR}/bash/bash_profile ${HOME}/.bash_profile
 fi
 
 [ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config

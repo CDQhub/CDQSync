@@ -1,4 +1,11 @@
 #!/bin/bash
+#####
+## @Author      : caodaqian
+## @since       : 2020-09-09 10:45:26
+## @LastEditors : caodaqian
+## @lastTime    : 2020-09-09 11:01:37
+## @Description : sync bashrc and bash_profile
+######
 
 set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
@@ -6,12 +13,18 @@ WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 # get bashrc
 if [[ ! -f ${HOME}/.bashrc ]]; then
     echo "cp my bashrc to ~/.bashrc" >&2
-    cp ${WORKDIR}/bash/bashrc ~/.bashrc
+    cp ${WORKDIR}/bash/bashrc ${HOME}/.bashrc
 fi
 
 echo "cp my config file to ~/.config" >&2
 [ -d ${HOME}/.config ] && mkdir ${HOME}/.config
 cp -f ${WORKDIR}/config/* ${HOME}/.config
+
+# get bash_profile
+if [[ ! -f ${HOME}/.bash_profile ]]; then
+    echo "cp my bash_profile to ~/.bash_profile" >&2
+    cp ${WORKDIR}/bash/bash_profile ${HOME}/.bash_profile
+fi
 
 ## for env settings
 [ ! -d ${HOME}/Software ] && mkdir ${HOME}/Software

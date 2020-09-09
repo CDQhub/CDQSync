@@ -1,24 +1,17 @@
-# .bashrc
+###
+# @Author      : caodaqian
+# @since       : 2020-09-09 10:41:53
+# @LastEditors : caodaqian
+# @lastTime    : 2020-09-09 10:42:09
+# @Description : .bashrc
+###
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    . /etc/bashrc
 fi
 
-# User locale config
-if [ -f ${HOME}/.config/locale.conf ]; then
-    . ${HOME}/.config/locale.conf
-fi
-
-# User specific aliases and functions
-if [ -f ${HOME}/.config/alias.conf ]; then
-    . ${HOME}/.config/alias.conf
-fi
-
-# env config
-if [ -f ${HOME}/.config/env.conf ]; then
-    . ${HOME}/.config/env.conf
-fi
+[[ -f ${HOME}/.bash_profile ]] && source ${HOME}/.bash_profile
 
 ## fzf config
 [ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
