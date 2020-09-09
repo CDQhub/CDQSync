@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:26
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:01:37
+## @lastTime    : 2020-09-09 11:20:45
 ## @Description : sync bashrc and bash_profile
 ######
 
@@ -19,12 +19,6 @@ fi
 echo "cp my config file to ~/.config" >&2
 [ -d ${HOME}/.config ] && mkdir ${HOME}/.config
 cp -f ${WORKDIR}/config/* ${HOME}/.config
-
-# get bash_profile
-if [[ ! -f ${HOME}/.bash_profile ]]; then
-    echo "cp my bash_profile to ~/.bash_profile" >&2
-    cp ${WORKDIR}/bash/bash_profile ${HOME}/.bash_profile
-fi
 
 ## for env settings
 [ ! -d ${HOME}/Software ] && mkdir ${HOME}/Software

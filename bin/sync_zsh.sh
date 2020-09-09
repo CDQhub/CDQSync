@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @since       : 2020-09-09 10:45:58
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:01:57
+## @lastTime    : 2020-09-09 11:21:01
 ## @Description : sync zshrc and bash_profile
 ######
 
@@ -31,12 +31,6 @@ if [[ ! -f ${HOME}/.zshrc ]]; then
     # get zshrc
     echo "cp my zshrc to ~/.zshrc" >&2
     cp ${WORKDIR}/zsh/zshrc ${HOME}/.zshrc
-fi
-
-# get bash_profile
-if [[ ! -f ${HOME}/.bash_profile ]]; then
-    echo "cp my bash_profile to ~/.bash_profile" >&2
-    cp ${WORKDIR}/bash/bash_profile ${HOME}/.bash_profile
 fi
 
 [ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config
