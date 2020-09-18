@@ -292,14 +292,13 @@ imap <silent> <leader>smp <Plug>StopMarkdownPreview
 let g:table_mode_corner='|'
 
 " -- vim-interestingwords setting ----------------------------------------------
-nnoremap <silent> <leader>h :call InterestingWords('n')<cr>
-nnoremap <silent> <leader>nh :call UncolorAllWords()<cr>
+nnoremap <silent> gh :call InterestingWords('n')<cr>
+nnoremap <silent> gnh :call UncolorAllWords()<cr>
 nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 
 " -- scrooloose/nerdtree setting -----------------------------------------------
 noremap ff :NERDTreeToggle<CR>
-noremap <LEADER>ff :NERDTreeFind<CR>
 let NERDTreeAutoCenter=1
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
