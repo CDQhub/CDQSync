@@ -239,7 +239,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " -- text crary -----------------------
 Plug 'tpope/vim-surround'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/vim-cursorword'
@@ -267,13 +267,11 @@ Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'c
 
 call plug#end()
 
-" -- vim-indent-guides setting -------------------------------------------------
-noremap <F5> :IndentGuidesToggle<CR>
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_color_change_percent = 50
-let g:indent_guides_enable_on_vim_startup = 1
-silent! unmap <LEADER>ig
+" -- indentLine setting -------------------------------------------------
+noremap <F5> :IndentLinesToggle<CR>
+let g:indentLine_char_list = ['¦', '┆', '┊', '|']
+let g:indentLine_enabled = 1
+let g:indentLine_faster = 1
 
 " -- vim-easy-align setting ----------------------------------------------------
 xmap ga <Plug>(EasyAlign)
