@@ -19,6 +19,7 @@ fi
 
 # env config
 [ -f ${HOME}/.config/env.conf ] && . ${HOME}/.config/env.conf
+bind -x '"\C-f":find-in-file'
 
 ## fzf config
 [ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash

@@ -36,5 +36,9 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
 ${HOME}/.fzf/install
 echo "finish install fzf!" >&2
 echo "**********************" >&2
+# install ranger
+./bin/sync_ranger.sh
+echo "finish install ranger!" >&2
+echo "**********************" >&2
 
 cd -
