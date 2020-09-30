@@ -236,6 +236,8 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
 
 " -- text crary -----------------------
 Plug 'tpope/vim-surround'
@@ -473,4 +475,10 @@ let g:godef_split=2
 
 " -- onedark ----------------------------------------------------------------
 colorschem onedark
+
+" -- ranger ------------------------------------------------------------------
+let g:ranger_map_keys = 0
+map <leader>f :RangerNewTab<CR>
+let g:NERDTreeHijackNetrw = 0
+let g:ranger_replace_netrw = 1
 let g:one_allow_italics = 1
