@@ -1,36 +1,36 @@
 [user]
-	name=caodaqian
-	email=cdq-c@qq.com
+name=caodaqian
+email=cdq-c@qq.com
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
 
 [core]
-  excludesfile = ~/.config/gitignore
-  attributesfile = ~/.config/gitattributes
-  whitespace = space-before-tab,-indent-with-non-tab,trailing-space
-  trustctime = false
-  quotepath = false
-  # line endings
-  # force LF during add
-  autocrlf = input
-  # autocrlf = true # for windows to convert to CRLF on checkout and LF on add
-  # warn but allow line ending conversion to proceed
-  safecrlf = warn
-  # prevent crlf (then you will have to deal with the problem -- dos2unix, etc)
-  #safecrlf = true
-  editor = vim
-  #editor = subl -w
+excludesfile = ~/.config/gitignore
+attributesfile = ~/.config/gitattributes
+whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+trustctime = false
+quotepath = false
+# line endings
+# force LF during add
+autocrlf = input
+# autocrlf = true # for windows to convert to CRLF on checkout and LF on add
+# warn but allow line ending conversion to proceed
+safecrlf = warn
+# prevent crlf (then you will have to deal with the problem -- dos2unix, etc)
+#safecrlf = true
+editor = $EDITOR
+#editor = subl -w
 
 [push]
-	# https://git-scm.com/docs/git-config#git-config-pushdefault
-	default = simple
-	# Make `git push` push relevant annotated tags when pushing branches out.
-	followTags = true
+# https://git-scm.com/docs/git-config#git-config-pushdefault
+default = simple
+# Make `git push` push relevant annotated tags when pushing branches out.
+followTags = true
 
 [apply]
-  # Detect whitespace errors when applying a patch.
-  whitespace = fix
+# Detect whitespace errors when applying a patch.
+whitespace = fix

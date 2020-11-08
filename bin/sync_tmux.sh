@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @CreateTime  : 2020-11-08 13:57:58
 ## @LastEditors : caodaqian
-## @LastEditTime: 2020-11-08 14:01:00
+## @LastEditTime: 2020-11-08 17:44:52
 ## @Description : install and sync config for tmux
 ##########################################
 
@@ -26,7 +26,7 @@ fi
 ## sync tmux.conf.local
 if [ ! -d ${HOME}/.tmux ]; then
     echo "install oh-my-tmux" >&2
-    git clone https://github.com/gpakosz/.tmux.git ${HOME}/
+    git clone https://github.com/gpakosz/.tmux.git ${HOME}/.tmux
     ln -s -f ${HOME}/.tmux/.tmux.conf ${HOME}/.tmux.conf
     cp ${WORKDIR}/tmux/tmux.conf.local ${HOME}/.tmux.conf.local
 fi

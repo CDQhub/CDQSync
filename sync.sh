@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @CreateTime  : 2020-09-09 10:32:02
 ## @LastEditors : caodaqian
-## @LastEditTime: 2020-11-08 14:26:51
+## @LastEditTime: 2020-11-08 17:34:56
 ## @Description : sync all in one
 ##########################################
 
@@ -55,7 +55,7 @@ echo "**********************" >&2
 
 ## mkdir env config dir
 echo "mkdir env config dir" >&2
-[ ! -d ${HOME}/Software ] && mkdir ${HOME}/Software
+[ ! -d ${HOME}/.software ] && mkdir ${HOME}/.software
 [ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
 [ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}
 echo "**********************" >&2
