@@ -1,0 +1,488 @@
+" -- basic setting -------------------------------------------------------------
+set nocompatible
+set encoding=utf-8
+syntax on
+filetype plugin indent on
+set foldmethod=indent
+set foldlevel=99
+set autoindent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smarttab
+set history=88
+set clipboard=unnamed
+set autochdir
+
+" -- display -------------------------------------------------------------------
+set title       " change the terminal title
+set lazyredraw  " do not redraw when executing macros
+set report=0    " always report changes
+set cursorline  " highlight current line
+if has("autocmd")
+  augroup vim
+    autocmd!
+    autocmd filetype vim set textwidth=80
+  augroup END
+  augroup windows
+    autocmd!
+    autocmd VimResized * :wincmd = " resize splits when the window is resized
+  augroup END
+endif
+if has("gui_running")
+  set cursorcolumn  " highlight current column
+endif
+if exists("+relativenumber")
+  if v:version >= 400
+    set number
+  endif
+  set relativenumber  " show relative line numbers
+  set numberwidth=3   " narrow number column
+  " cycles between relative / absolute / no numbering
+  if v:version >= 400
+    function! RelativeNumberToggle()
+      if (&number == 1 && &relativenumber == 1)
+        set nonumber
+        set relativenumber relativenumber?
+      elseif (&number == 0 && &relativenumber == 1)
+        set norelativenumber
+        set number number?
+      elseif (&number == 1 && &relativenumber == 0)
+        set norelativenumber
+        set nonumber number?
+      else
+        set number
+        set relativenumber relativenumber?
+      endif
+    endfunc
+  else
+    function! RelativeNumberToggle()
+      if (&relativenumber == 1)
+        set number number?
+      elseif (&number == 1)
+        set nonumber number?
+      else
+        set relativenumber relativenumber?
+      endif
+    endfunc
+  endif
+  nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+else                  " fallback
+  set number          " show line numbers
+  " inverts numbering
+  nnoremap <silent> <leader>n :set number! number?<CR>
+endif
+set showmode      " always show the current editing mode
+set linebreak     " yet if enabled break at word boundaries
+set showcmd     " show partial command line (default)
+set cmdheight=1 " height of the command line
+set wrap
+set shortmess=astT  " abbreviate messages
+set shortmess+=c
+set backspace=indent,eol,start
+set number
+"set relativenumber
+set scrolloff=5
+
+" -- colorscheme -------------------------------------------------------------
+let $t_ut=''
+set t_Co=256
+set background=dark
+colorschem elflord
+
+" -- searching -----------------------------------------------------------------
+set wrapscan    " wrap around when searching
+set incsearch   " show match results while typing search pattern
+if (&t_Co > 2 || has("gui_running"))
+  set hlsearch  " highlight search terms
+endif
+set showmatch
+set ignorecase
+set smartcase
+
+" -- command mode --------------------------------------------------------------
+set wildmenu                    " enable tab completion menu
+set wildmode=longest:full,full  " complete till longest common string, then full
+set wildignore+=.git            " ignore the .git directory
+set wildignore+=*.DS_Store      " ignore Mac finder/spotlight crap
+if exists ("&wildignorecase")
+  set wildignorecase
+endif
+
+" -- scroll lines that are too long just slow when a line is too long ----------
+set synmaxcol=1000
+set ttyfast
+set lazyredraw
+
+" -- undo file. Note: you must create ~/.vim/undo first  ------------------------
+set undofile
+set undodir=~/.vim/undo
+set undolevels=100
+
+" -- expand filenames with forward slash ----------------------------------------
+if exists("+shellslash")
+  set shellslash
+endif
+
+" -- sudo then write ------------------------------------------------------------
+cabbrev w!! w !sudo tee % >/dev/null
+
+" -- basic mapping --------------------------------------------------------------
+map S :w<CR>
+map Q :q<CR>
+map R :source $MYVIMRC<CR>
+map sl :set nosplitright<CR>:vsplit<CR>
+map sr :set splitright<CR>:vsplit<CR>
+map su :set nosplitbelow<CR>:split<CR>
+map sd :set splitbelow<CR>:split<CR>
+cnoremap <C-a> <home>
+cnoremap <C-e> <end>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+noremap <silent> <leader>y "+y
+noremap <silent> <leader>Y "+Y
+noremap <silent> <leader>p "+p
+noremap <silent> <leader>P "+P
+inoremap jj <esc>
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
+nnoremap <C-T> :tabedit<CR>
+nnoremap <silent> tr :tabNext<CR>
+nnoremap <silent> tl :tabs<CR>
+let mapleader=";"
+let maplocalleader=";"
+cnoremap w!! w !sudo tee % >/dev/null
+
+" make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
+if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
+  execute "set <xUp>=\e[1;*A"
+  execute "set <xDown>=\e[1;*B"
+  execute "set <xRight>=\e[1;*C"
+  execute "set <xLeft>=\e[1;*D"
+  execute "set <xHome>=\e[1;*H"
+  execute "set <xEnd>=\e[1;*F"
+  execute "set <Insert>=\e[2;*~"
+  execute "set <Delete>=\e[3;*~"
+  execute "set <PageUp>=\e[5;*~"
+  execute "set <PageDown>=\e[6;*~"
+  execute "set <xF1>=\e[1;*P"
+  execute "set <xF2>=\e[1;*Q"
+  execute "set <xF3>=\e[1;*R"
+  execute "set <xF4>=\e[1;*S"
+  execute "set <F5>=\e[15;*~"
+  execute "set <F6>=\e[17;*~"
+  execute "set <F7>=\e[18;*~"
+  execute "set <F8>=\e[19;*~"
+  execute "set <F9>=\e[20;*~"
+  execute "set <F10>=\e[21;*~"
+  execute "set <F11>=\e[23;*~"
+  execute "set <F12>=\e[24;*~"
+endif
+
+" -- backup and swap files -----------------------------------------------------
+set backup      " enable backup files
+set writebackup " enable backup files
+set swapfile    " enable swap files (useful when loading huge files)
+let s:vimdir=$HOME . "/.vim"
+let &backupdir=s:vimdir . "/backup"  " backups location
+let &directory=s:vimdir . "/tmp"     " swap location
+if exists("*mkdir")
+  if !isdirectory(s:vimdir)
+    call mkdir(s:vimdir, "p")
+  endif
+  if !isdirectory(&backupdir)
+    call mkdir(&backupdir, "p")
+  endif
+  if !isdirectory(&directory)
+    call mkdir(&directory, "p")
+  endif
+endif
+set backupskip+=*.tmp " skip backup for *.tmp
+if has("persistent_undo")
+  let &undodir=&backupdir
+  set undofile  " enable persistent undo
+endif
+let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
+
+
+" -- mark badwhitespace with red -----------------------------------------------
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
+
+" -- auto install vim-plug
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" -- plugin setting ------------------------------------------------------------
+call plug#begin('~/.config/nvim/plugged')
+
+" -- theme ----------------------------
+"Plug 'crusoexia/vim-monokai'
+"Plug 'acarapetis/vim-colors-github'
+"Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-startify'
+
+" -- markdown -------------------------
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
+Plug 'dhruvasagar/vim-table-mode'
+
+" -- dir plugin -----------------------
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
+
+" -- text crary -----------------------
+Plug 'tpope/vim-surround'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/vim-easy-align'
+Plug 'itchyny/vim-cursorword'
+Plug 'lfv89/vim-interestingwords'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" -- code write -----------------------
+Plug 'fatih/vim-go', { 'tag': '*', 'for': 'go' }
+Plug 'dgryski/vim-godef'
+Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
+Plug 'scrooloose/syntastic'
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'hail2u/vim-css3-syntax', { 'for': ['php', 'html', 'javascript', 'css'] }
+Plug 'yuezk/vim-js', { 'for': ['php', 'html', 'javascript'] }
+Plug 'mattn/emmet-vim' " this plug for html
+
+" -- code crary -----------------------
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tmhedberg/SimpylFold'
+Plug 'Chiel92/vim-autoformat'
+Plug 'preservim/nerdcommenter'
+Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less', 'go'] }
+
+call plug#end()
+
+" -- indentLine setting -------------------------------------------------
+noremap <F5> :IndentLinesToggle<CR>
+let g:indentLine_char_list = ['¦', '┆', '┊', '|']
+let g:indentLine_enabled = 1
+let g:indentLine_faster = 1
+
+" -- vim-easy-align setting ----------------------------------------------------
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" -- SimplyFold setting --------------------------------------------------------
+let g:SimpylFold_docstring_preview=1
+
+" -- markdown ------------------------------------------------------------------
+nmap <silent> <leader>mp <Plug>MarkdownPreview
+imap <silent> <leader>mp <Plug>MarkdownPreview
+nmap <silent> <leader>smp <Plug>StopMarkdownPreview
+imap <silent> <leader>smp <Plug>StopMarkdownPreview
+
+" -- vim-table-mode setting ----------------------------------------------------
+let g:table_mode_corner='|'
+
+" -- vim-interestingwords setting ----------------------------------------------
+nnoremap <silent> gh :call InterestingWords('n')<cr>
+nnoremap <silent> gnh :call UncolorAllWords()<cr>
+nnoremap <silent> n :call WordNavigation('forward')<cr>
+nnoremap <silent> N :call WordNavigation('backward')<cr>
+
+" -- scrooloose/nerdtree setting -----------------------------------------------
+noremap ff :NERDTreeToggle<CR>
+let NERDTreeAutoCenter=1
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let NERDTreeShowBookmarks=2
+let g:nerdtree_tabs_open_on_console_startup=1
+
+" -- fzf settings -------------------------------------------------------------
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+endif
+
+" -- nerdtree-git-plugin ------------------------------------------------------
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+let g:NERDTreeShowIgnoredStatus = 0
+
+" -- nerdcommenter setting -----------------------------------------------------
+let g:NERDSpaceDelims = 1
+let g:NERDTrimTrailingWhitespace = 1
+
+" -- vim-startify setting ------------------------------------------------------
+let g:startify_change_to_dir=0
+let g:startify_fortune_use_unicode=1
+let g:startify_session_autoload=1
+
+" -- coc.nvim setting ----------------------------------------------------------
+let g:coc_global_extensions = [
+    \ 'coc-actions',
+    \ 'coc-css',
+    \ 'coc-explorer',
+    \ 'coc-flutter-tools',
+    \ 'coc-gitignore',
+    \ 'coc-html',
+    \ 'coc-json',
+    \ 'coc-lists',
+    \ 'coc-prettier',
+    \ 'coc-go',
+    \ 'coc-phpls',
+    \ 'coc-snippets',
+    \ 'coc-syntax',
+    \ 'coc-todolist',
+    \ 'coc-translator',
+    \ 'coc-tslint-plugin',
+    \ 'coc-tsserver',
+    \ 'coc-vimlsp',
+    \ 'coc-yaml',
+    \ 'coc-sh',
+    \ 'coc-template',
+    \ 'coc-clangd']
+set hidden
+set updatetime=200
+
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+if exists('*complete_info')
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window
+nnoremap <silent> <LEADER>h :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+" Formatting selected code.
+xmap <leader>F  <Plug>(coc-format-selected)
+nmap <leader>F  <Plug>(coc-format-selected)
+" fold by coc
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+" -- airline setting ----------------------------------------------------------
+set laststatus=2
+let g:airline_symbols_ascii = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#show_line_numbers = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
+let g:airline#extensions#branch#displayed_head_limit = 10
+let g:airline#extensions#branch#sha1_len = 8
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#bufferline#overwrite_variables = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#keymap#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+"let g:airline_theme='luna'
+let g:airline_theme='onedark'
+let python_highlight_all=1
+if has('win32')
+	set guifont=Hermit:h14
+	set guifontwide=Microsoft_YaHei_Mono:h14
+endif
+
+" -- vim-go ------------------------------------------------------------------
+let g:go_version_warning = 0
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:godef_split=2
+
+" -- onedark ----------------------------------------------------------------
+colorschem onedark
+
+" -- ranger ------------------------------------------------------------------
+let g:ranger_map_keys = 0
+map <leader>f :RangerNewTab<CR>
+let g:NERDTreeHijackNetrw = 0
+let g:ranger_replace_netrw = 1
+let g:one_allow_italics = 1
