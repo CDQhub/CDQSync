@@ -1,11 +1,11 @@
 #!/bin/sh
-#####
+##########################################
 ## @Author      : caodaqian
-## @since       : 2020-09-09 10:46:42
+## @CreateTime  : 2020-09-09 10:46:42
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 11:30:57
+## @LastEditTime: 2020-11-08 14:17:56
 ## @Description : sync vimrc and mkdir .vim/*
-######
+##########################################
 
 set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))

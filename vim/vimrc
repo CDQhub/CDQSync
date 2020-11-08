@@ -216,6 +216,12 @@ let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 highlight BadWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
 
+" -- auto install vim-plug
+if empty(glob('$HOME/.vim/autoload/plug.vim'))
+  silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " -- plugin setting ------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
@@ -250,15 +256,15 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " -- code write -----------------------
-Plug 'fatih/vim-go', { 'tag': '*'}
+Plug 'fatih/vim-go', { 'tag': '*', 'for': 'go' }
 Plug 'dgryski/vim-godef'
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
 Plug 'scrooloose/syntastic'
-Plug 'elzr/vim-json'
-Plug 'hail2u/vim-css3-syntax'
-" this plug for html
-Plug 'mattn/emmet-vim'
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'hail2u/vim-css3-syntax' { 'for': ['php', 'html', 'javascript', 'css'] }
+Plug 'yuezk/vim-js', { 'for': ['php', 'html', 'javascript'] }
+Plug 'mattn/emmet-vim' " this plug for html
 
 " -- code crary -----------------------
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

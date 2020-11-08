@@ -1,46 +1,41 @@
-#!/bin/sh
-#####
+#!/bin/zsh
+##########################################
 ## @Author      : caodaqian
-## @since       : 2020-09-09 10:45:58
+## @CreateTime  : 2020-09-09 10:45:58
 ## @LastEditors : caodaqian
-## @lastTime    : 2020-09-09 13:57:42
+## @LastEditTime: 2020-11-08 14:21:03
 ## @Description : sync zshrc and mkdir user tmp dir
-######
+##########################################
 
 set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
-if [ ! -x /usr/bin/zsh ]; then
+## install zsh
+if [[ -z "$(zsh --version 2>/dev/null)" ]]; then
     echo "Can't find zsh, then will install zsh firstly" >&2
     sudo yum install zsh -y
 fi
 
-if [ ! -d ~/.oh-my-zsh ]; then
+## install oh-my-zsh
+if [[ .oh-my-zsh != $(basename $ZSH) ]]; then
     echo "Can't find .oh-my-zsh, then will install oh-my-zsh" >&2
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+## install autosuggestions syntax-highlighting powerlevel10k
 if [[ -d ${HOME}/.oh-my-zsh ]]; then
-    echo "install zsh plugins"
+    echo "install zsh plugins autosuggestions syntax-highlighting powerlevel10k"
     # install autosuggestions and syntax_highlignt
     [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ] && git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     [ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
+## sync zsh config if file not exist
 if [[ ! -f ${HOME}/.zshrc ]]; then
     # get zshrc
     echo "cp my zshrc to ~/.zshrc" >&2
     cp ${WORKDIR}/zsh/zshrc ${HOME}/.zshrc
 fi
-
-[ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config
-echo "cp my config file to ~/.config" >&2
-cp -f ${WORKDIR}/config/*.conf ${HOME}/.config
-
-## for env settings
-[ ! -d ${HOME}/Software ] && mkdir ${HOME}/Software
-[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
-[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}
 
 source ${HOME}/.zshrc
