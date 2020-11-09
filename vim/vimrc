@@ -246,6 +246,7 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
 " -- text crary -----------------------
+Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
