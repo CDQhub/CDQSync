@@ -481,10 +481,10 @@ let g:godef_split=2
 
 " -- onedark ----------------------------------------------------------------
 colorschem onedark
+let g:one_allow_italics = 1
 
 " -- ranger ------------------------------------------------------------------
 let g:ranger_map_keys = 0
 map <leader>f :RangerNewTab<CR>
 let g:NERDTreeHijackNetrw = 0
 let g:ranger_replace_netrw = 1
-let g:one_allow_italics = 1
