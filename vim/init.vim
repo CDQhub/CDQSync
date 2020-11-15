@@ -131,11 +131,14 @@ cabbrev w!! w !sudo tee % >/dev/null
 " -- basic mapping --------------------------------------------------------------
 map S :w<CR>
 map Q :q<CR>
-map R :source $MYVIMRC<CR>
+map <C-q> :q!<CR>
+map <leader>R :source $MYVIMRC<CR>
 map sl :set nosplitright<CR>:vsplit<CR>
 map sr :set splitright<CR>:vsplit<CR>
 map su :set nosplitbelow<CR>:split<CR>
 map sd :set splitbelow<CR>:split<CR>
+nnoremap < <<
+nnoremap > >>
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
 nnoremap <C-J> <C-W><C-J>
@@ -253,6 +256,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'lfv89/vim-interestingwords'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " -- code write -----------------------
 Plug 'fatih/vim-go', { 'tag': '*', 'for': 'go' }
