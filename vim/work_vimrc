@@ -20,6 +20,7 @@ set title       " change the terminal title
 set lazyredraw  " do not redraw when executing macros
 set report=0    " always report changes
 set cursorline  " highlight current line
+set termguicolors
 if has("autocmd")
   augroup vim
     autocmd!
@@ -81,8 +82,6 @@ set wrap
 set shortmess=astT  " abbreviate messages
 set shortmess+=c
 set backspace=indent,eol,start
-set number
-"set relativenumber
 set scrolloff=5
 
 " -- colorscheme -------------------------------------------------------------
@@ -90,7 +89,7 @@ let $t_ut=''
 set t_Co=256
 set term=xterm
 set background=dark
-colorschem elflord
+colorscheme default
 
 " -- searching -----------------------------------------------------------------
 set wrapscan    " wrap around when searching
@@ -129,17 +128,20 @@ endif
 
 " -- sudo then write ------------------------------------------------------------
 cabbrev w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
 
 " -- basic mapping --------------------------------------------------------------
 map S :w<CR>
 map Q :q<CR>
-map R :source $MYVIMRC<CR>
+map <leader>r :source $MYVIMRC<CR>
 map sl :set nosplitright<CR>:vsplit<CR>
 map sr :set splitright<CR>:vsplit<CR>
 map su :set nosplitbelow<CR>:split<CR>
 map sd :set splitbelow<CR>:split<CR>
-cnoremap <C-a> <home>
-cnoremap <C-e> <end>
+nnoremap < <<
+nnoremap > >>
+cnoremap <C-A> <home>
+cnoremap <C-E> <end>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -158,7 +160,6 @@ nnoremap <silent> tr :tabNext<CR>
 nnoremap <silent> tl :tabs<CR>
 let mapleader=";"
 let maplocalleader=";"
-cnoremap w!! w !sudo tee % >/dev/null
 
 " make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
 if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
@@ -215,3 +216,4 @@ let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 " -- mark badwhitespace with red -----------------------------------------------
 highlight BadWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
+

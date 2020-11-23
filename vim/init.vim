@@ -20,6 +20,7 @@ set title       " change the terminal title
 set lazyredraw  " do not redraw when executing macros
 set report=0    " always report changes
 set cursorline  " highlight current line
+set termguicolors
 if has("autocmd")
   augroup vim
     autocmd!
@@ -81,8 +82,6 @@ set wrap
 set shortmess=astT  " abbreviate messages
 set shortmess+=c
 set backspace=indent,eol,start
-set number
-"set relativenumber
 set scrolloff=5
 
 " -- colorscheme -------------------------------------------------------------
@@ -127,20 +126,21 @@ endif
 
 " -- sudo then write ------------------------------------------------------------
 cabbrev w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
 
 " -- basic mapping --------------------------------------------------------------
 map S :w<CR>
 map Q :q<CR>
 map <C-q> :q!<CR>
-map <leader>R :source $MYVIMRC<CR>
+map <leader>r :source $MYVIMRC<CR>
 map sl :set nosplitright<CR>:vsplit<CR>
 map sr :set splitright<CR>:vsplit<CR>
 map su :set nosplitbelow<CR>:split<CR>
 map sd :set splitbelow<CR>:split<CR>
 nnoremap < <<
 nnoremap > >>
-cnoremap <C-a> <home>
-cnoremap <C-e> <end>
+cnoremap <C-A> <home>
+cnoremap <C-E> <end>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -159,7 +159,6 @@ nnoremap <silent> tr :tabNext<CR>
 nnoremap <silent> tl :tabs<CR>
 let mapleader=";"
 let maplocalleader=";"
-cnoremap w!! w !sudo tee % >/dev/null
 
 " make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
 if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
@@ -191,7 +190,7 @@ endif
 set backup      " enable backup files
 set writebackup " enable backup files
 set swapfile    " enable swap files (useful when loading huge files)
-let s:vimdir=$HOME . "/.vim"
+let s:vimdir=$HOME . "/.config/nvim"
 let &backupdir=s:vimdir . "/backup"  " backups location
 let &directory=s:vimdir . "/tmp"     " swap location
 if exists("*mkdir")
@@ -227,10 +226,13 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " -- theme ----------------------------
-"Plug 'crusoexia/vim-monokai'
-"Plug 'acarapetis/vim-colors-github'
-"Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
+Plug 'crusoexia/vim-monokai'
+Plug 'acarapetis/vim-colors-github'
+Plug 'morhetz/gruvbox'
+Plug 'rakr/vim-one'
+Plug 'ayu-theme/ayu-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'arzg/vim-colors-xcode'
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-startify'
 
@@ -440,6 +442,22 @@ endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
+" -- vim-go ------------------------------------------------------------------
+let g:go_version_warning = 0
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:godef_split=2
+
 " -- airline setting ----------------------------------------------------------
 set laststatus=2
 let g:airline_symbols_ascii = 1
@@ -458,33 +476,35 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-"let g:airline_theme='luna'
-let g:airline_theme='onedark'
 let python_highlight_all=1
 if has('win32')
 	set guifont=Hermit:h14
 	set guifontwide=Microsoft_YaHei_Mono:h14
 endif
 
-" -- vim-go ------------------------------------------------------------------
-let g:go_version_warning = 0
-let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-let g:go_version_warning = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
-let g:godef_split=2
-
-" -- onedark ----------------------------------------------------------------
-colorschem onedark
+" -- one --------------------------------------------------------------------
 let g:one_allow_italics = 1
+" -- dracula ----------------------------------------------------------------
+" -- ayu --------------------------------------------------------------------
+let ayucolor="light"  " for light version of theme
+let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
+" -- xcode ------------------------------------------------------------------
+let green_comments = 1
+let match_paren_style = 1
+" -- theme main -------------------------------------------------------------
+"colorscheme one
+"let g:airline_theme='one'
+"colorscheme dracula
+"let g:airline_theme='dracula'
+"colorscheme ayu
+"let g:airline_theme='ayu'
+colorscheme xcodedark
+let g:airline_theme='xcodedark'
+"colorscheme xcodedarkhc
+"colorscheme xcodelight
+"colorscheme xcodelighthc
+"colorscheme xcodewwdc
 
 " -- ranger ------------------------------------------------------------------
 let g:ranger_map_keys = 0
