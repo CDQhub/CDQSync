@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @CreateTime  : 2020-09-09 10:45:58
 ## @LastEditors : caodaqian
-## @LastEditTime: 2020-11-08 14:21:03
+## @LastEditTime: 2020-12-03 16:15:11
 ## @Description : sync zshrc and mkdir user tmp dir
 ##########################################
 
@@ -39,3 +39,9 @@ if [[ ! -f ${HOME}/.zshrc ]]; then
 fi
 
 source ${HOME}/.zshrc
+
+## mkdir MYPATH
+[ ! -d ${HOME}/.software ] && mkdir ${HOME}/.software
+[ ! -d ${MYTMP} ] && mkdir -p ${MYTMP}
+[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
+[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}

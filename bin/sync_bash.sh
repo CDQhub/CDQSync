@@ -3,7 +3,7 @@
 ## @Author      : caodaqian
 ## @CreateTime  : 2020-09-09 10:45:26
 ## @LastEditors : caodaqian
-## @LastEditTime: 2020-11-08 14:19:32
+## @LastEditTime: 2020-12-03 16:14:04
 ## @Description : sync bashrc and mkdir user tmp dir
 ##########################################
 
@@ -11,9 +11,12 @@ set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## sync bashrc if file not exist
-if [[ ! -f ${HOME}/.bashrc ]]; then
-    echo "cp my bashrc to ~/.bashrc" >&2
-    cp ${WORKDIR}/bash/bashrc ${HOME}/.bashrc
-fi
-
+echo "cp my bashrc to ~/.bashrc"
+cp ${WORKDIR}/bash/bashrc ${HOME}/.bashrc
 source ${HOME}/.bashrc
+
+## mkdir MYPATH
+[ ! -d ${HOME}/.software ] && mkdir ${HOME}/.software
+[ ! -d ${MYTMP} ] && mkdir -p ${MYTMP}
+[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
+[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}

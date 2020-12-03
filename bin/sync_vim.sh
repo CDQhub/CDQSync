@@ -3,24 +3,26 @@
 ## @Author      : caodaqian
 ## @CreateTime  : 2020-09-09 10:46:42
 ## @LastEditors : caodaqian
-## @LastEditTime: 2020-11-08 14:17:56
+## @LastEditTime: 2020-12-03 16:10:31
 ## @Description : sync vimrc and mkdir .vim/*
 ##########################################
 
 set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
-if [ ! -f ${HOME}/.vim/autoload/plug.vim ]; then
-    echo "plug.vim is not exists, then will install plug.vim first" >&2
-    curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
 ## for vimrc config
-[ ! -d ${HOME}/.vim/undo ] && mkdir ${HOME}/.vim/undo
-[ ! -d ${HOME}/.vim/backup ] && mkdir ${HOME}/.vim/backup
-[ ! -d ${HOME}/.vim/tmp ] && mkdir ${HOME}/.vim/tmp
-[ ! -d ${HOME}/.vim/viminfo ] && mkdir ${HOME}/.vim/viminfo
+if [[ ! -z ${VIMDIR} ]]; then
+    echo "mkdir vim undo/tmp/backup/viminfo"
+    [ ! -d ${VIMDIR}/undo ] && mkdir ${VIMDIR}/undo
+    [ ! -d ${VIMDIR}/backup ] && mkdir ${VIMDIR}/backup
+    [ ! -d ${VIMDIR}/tmp ] && mkdir ${VIMDIR}/tmp
+    [ ! -d ${VIMDIR}/viminfo ] && mkdir ${VIMDIR}/viminfo
 
-echo "cp my vimrc to ~/.vim/vimrc" >&2
-cp ${WORKDIR}/vim/vimrc ${HOME}/.vim/vimrc
-cp ${WORKDIR}/vim/coc-settings.json ${HOME}/.vim/coc-settings.json
+    echo "cp VIMRC and coc-settings.json"
+    if [[ -z "$(nvim --version 2>/dev/null)" ]]; then
+        cp ${WORKDIR}/vim/vimrc ${VIMDIR}/vimrc
+    else
+        cp ${WORKDIR}/vim/init.vim ${VIMDIR}/init.vim
+    fi
+    cp ${WORKDIR}/vim/coc-settings.json ${VIMDIR}/coc-settings.json
+fi
