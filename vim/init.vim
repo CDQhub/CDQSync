@@ -139,8 +139,8 @@ map su :set nosplitbelow<CR>:split<CR>
 map sd :set splitbelow<CR>:split<CR>
 nnoremap < <<
 nnoremap > >>
-nnoremap <C-A> <home>
-nnoremap <C-E> <end>
+nnoremap B <home>
+nnoremap E <end>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
