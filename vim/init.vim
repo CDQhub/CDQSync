@@ -94,7 +94,7 @@ colorschem elflord
 set wrapscan    " wrap around when searching
 set incsearch   " show match results while typing search pattern
 if (&t_Co > 2 || has("gui_running"))
-  set hlsearch  " highlight search terms
+    set hlsearch  " highlight search terms
 endif
 set showmatch
 set ignorecase
@@ -106,7 +106,7 @@ set wildmode=longest:full,full  " complete till longest common string, then full
 set wildignore+=.git            " ignore the .git directory
 set wildignore+=*.DS_Store      " ignore Mac finder/spotlight crap
 if exists ("&wildignorecase")
-  set wildignorecase
+    set wildignorecase
 endif
 
 " -- scroll lines that are too long just slow when a line is too long ----------
@@ -129,6 +129,8 @@ cabbrev w!! w !sudo tee % >/dev/null
 cnoremap w!! w !sudo tee % >/dev/null
 
 " -- basic mapping --------------------------------------------------------------
+let mapleader=";"
+let maplocalleader=";"
 map S :w<CR>
 map Q :q<CR>
 map <C-q> :q!<CR>
@@ -160,33 +162,31 @@ map <right> :vertical resize+5<CR>
 nnoremap <C-T> :tabedit<CR>
 nnoremap <silent> tr :tabNext<CR>
 nnoremap <silent> tl :tabs<CR>
-let mapleader=";"
-let maplocalleader=";"
 
 " make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
 if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
-  execute "set <xUp>=\e[1;*A"
-  execute "set <xDown>=\e[1;*B"
-  execute "set <xRight>=\e[1;*C"
-  execute "set <xLeft>=\e[1;*D"
-  execute "set <xHome>=\e[1;*H"
-  execute "set <xEnd>=\e[1;*F"
-  execute "set <Insert>=\e[2;*~"
-  execute "set <Delete>=\e[3;*~"
-  execute "set <PageUp>=\e[5;*~"
-  execute "set <PageDown>=\e[6;*~"
-  execute "set <xF1>=\e[1;*P"
-  execute "set <xF2>=\e[1;*Q"
-  execute "set <xF3>=\e[1;*R"
-  execute "set <xF4>=\e[1;*S"
-  execute "set <F5>=\e[15;*~"
-  execute "set <F6>=\e[17;*~"
-  execute "set <F7>=\e[18;*~"
-  execute "set <F8>=\e[19;*~"
-  execute "set <F9>=\e[20;*~"
-  execute "set <F10>=\e[21;*~"
-  execute "set <F11>=\e[23;*~"
-  execute "set <F12>=\e[24;*~"
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+    execute "set <xHome>=\e[1;*H"
+    execute "set <xEnd>=\e[1;*F"
+    execute "set <Insert>=\e[2;*~"
+    execute "set <Delete>=\e[3;*~"
+    execute "set <PageUp>=\e[5;*~"
+    execute "set <PageDown>=\e[6;*~"
+    execute "set <xF1>=\e[1;*P"
+    execute "set <xF2>=\e[1;*Q"
+    execute "set <xF3>=\e[1;*R"
+    execute "set <xF4>=\e[1;*S"
+    execute "set <F5>=\e[15;*~"
+    execute "set <F6>=\e[17;*~"
+    execute "set <F7>=\e[18;*~"
+    execute "set <F8>=\e[19;*~"
+    execute "set <F9>=\e[20;*~"
+    execute "set <F10>=\e[21;*~"
+    execute "set <F11>=\e[23;*~"
+    execute "set <F12>=\e[24;*~"
 endif
 
 " -- backup and swap files -----------------------------------------------------
@@ -197,20 +197,20 @@ let s:vimdir=$HOME . "/.config/nvim"
 let &backupdir=s:vimdir . "/backup"  " backups location
 let &directory=s:vimdir . "/tmp"     " swap location
 if exists("*mkdir")
-  if !isdirectory(s:vimdir)
-    call mkdir(s:vimdir, "p")
-  endif
-  if !isdirectory(&backupdir)
-    call mkdir(&backupdir, "p")
-  endif
-  if !isdirectory(&directory)
-    call mkdir(&directory, "p")
-  endif
+    if !isdirectory(s:vimdir)
+        call mkdir(s:vimdir, "p")
+    endif
+    if !isdirectory(&backupdir)
+        call mkdir(&backupdir, "p")
+    endif
+    if !isdirectory(&directory)
+        call mkdir(&directory, "p")
+    endif
 endif
 set backupskip+=*.tmp " skip backup for *.tmp
 if has("persistent_undo")
-  let &undodir=&backupdir
-  set undofile  " enable persistent undo
+    let &undodir=&backupdir
+    set undofile  " enable persistent undo
 endif
 let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 
@@ -269,7 +269,7 @@ Plug 'dgryski/vim-godef'
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
 Plug 'scrooloose/syntastic'
-Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'neoclide/jsonc.vim', { 'for': ['json', 'jsonc'] }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['php', 'html', 'javascript', 'css'] }
 Plug 'yuezk/vim-js', { 'for': ['php', 'html', 'javascript'] }
 Plug 'mattn/emmet-vim' " this plug for html
@@ -322,9 +322,9 @@ let g:nerdtree_tabs_open_on_console_startup=1
 
 " -- fzf settings -------------------------------------------------------------
 if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+    let g:fzf_layout = { 'tmux': '-p90%,60%' }
 else
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 endif
 
 " -- nerdtree-git-plugin ------------------------------------------------------
@@ -353,12 +353,11 @@ let g:startify_session_autoload=1
 
 " -- coc.nvim setting ----------------------------------------------------------
 let g:coc_global_extensions = [
-    \ 'coc-actions',
     \ 'coc-css',
-    \ 'coc-explorer',
     \ 'coc-flutter-tools',
     \ 'coc-gitignore',
     \ 'coc-html',
+    \ 'coc-highlight', 
     \ 'coc-json',
     \ 'coc-lists',
     \ 'coc-prettier',
@@ -366,23 +365,24 @@ let g:coc_global_extensions = [
     \ 'coc-phpls',
     \ 'coc-snippets',
     \ 'coc-syntax',
-    \ 'coc-todolist',
     \ 'coc-translator',
     \ 'coc-tslint-plugin',
     \ 'coc-tsserver',
     \ 'coc-vimlsp',
     \ 'coc-yaml',
     \ 'coc-sh',
+    \ 'coc-docker',
+    \ 'coc-markdownlint',
     \ 'coc-template',
     \ 'coc-clangd']
 set hidden
 set updatetime=200
 
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
 else
-  set signcolumn=yes
+    set signcolumn=yes
 endif
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
@@ -395,9 +395,9 @@ function! s:check_back_space() abort
 endfunction
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+    inoremap <silent><expr> <c-@> coc#refresh()
 endif
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 if exists('*complete_info')
@@ -432,15 +432,15 @@ xmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>F  <Plug>(coc-format-selected)
 " fold by coc
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 " Remap for do codeAction of selected region
 function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
+    execute 'CocCommand actions.open ' . a:type
 endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
@@ -498,12 +498,12 @@ let match_paren_style = 1
 " -- theme main -------------------------------------------------------------
 "colorscheme one
 "let g:airline_theme='one'
-"colorscheme dracula
-"let g:airline_theme='dracula'
+colorscheme dracula
+let g:airline_theme='dracula'
 "colorscheme ayu
 "let g:airline_theme='ayu'
-colorscheme xcodedark
-let g:airline_theme='xcodedark'
+"colorscheme xcodedark
+"let g:airline_theme='xcodedark'
 "colorscheme xcodedarkhc
 "colorscheme xcodelight
 "colorscheme xcodelighthc

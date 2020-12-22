@@ -1,24 +1,27 @@
 {
-	"coc.preferences.hoverTarget": "preview",
-	"coc.preferences.enableFloatHighlight": true,
-	"coc.preferences.snippetStatusText": "Ⓢ ",
 	"coc.preferences.extensionUpdateCheck": "daily",
+	"coc.preferences.snippetStatusText": "Ⓢ ",
+	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.messageLevel": "error",
+	"coc.preferences.formatOnInsertLeave": true,
+	// 配置关闭过滤第一个字母严格匹配
 	"coc.source.around.firstMatch": false,
 	"coc.source.buffer.firstMatch": false,
-	"snippets.ultisnips.usePythonx": false,
 	"coc.source.syntax.firstMatch": false,
-	"suggest.detailMaxLength": 60,
+	"suggest.detailMaxLength": 100,
 	"suggest.noselect": true,
-	"suggest.enablePreselect": false,
+	// 启用 LSP 的预选功能
+	"suggest.enablePreselect": true,
+	// 回车键触发补全
 	"suggest.triggerAfterInsertEnter": true,
 	"suggest.autoTrigger": "always",
-	"suggest.timeout": 5000,
+	"suggest.triggerCompletionWait": 100,
+	"suggest.minTriggerInputLength": 3,
+	// 建议时候添加预览选项
 	"suggest.enablePreview": true,
+	"suggest.timeout": 5000,
 	"suggest.floatEnable": true,
 	"suggest.detailField": "preview",
-	"suggest.snippetIndicator": "",
-	"suggest.triggerCompletionWait": 100,
 	"suggest.echodocSupport": true,
 	"diagnostic.displayByAle": false,
 	"diagnostic.refreshOnInsertMode": false,
@@ -27,12 +30,12 @@
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
 	"codeLens.enable": true,
-	"list.previewHighlightGroup": "Statement",
-	"list.nextKeymap": "<C-e>",
-	"list.previousKeymap": "<C-u>",
+	"signature.target": "float",
+	// format On Save Filetypes
 	"coc.preferences.formatOnSaveFiletypes": [
 		"javascript",
 		"typescript",
+		"markdown",
 		"html",
 		"css",
 		"json",
@@ -43,38 +46,29 @@
 		"svelte"
 	],
 	"yaml.format.enable": true,
-	"signature.target": "float",
 	"typescript.suggestionActions.enabled": true,
 	"typescript.format.enabled": true,
-	"explorer.width": 38,
-	"explorer.quitOnOpen": true,
-	"explorer.sources": [
-		{
-			"name": "buffer",
-			"expand": false
-		},
-		{
-			"name": "file",
-			"expand": true
-		}
-	],
-	"explorer.file.column.indent.indentLine": true,
-	"explorer.file.showHiddenFiles": true,
-	"explorer.icon.enableNerdfont": true,
-	"explorer.keyMappingMode": "none",
-	"explorer.buffer.showHiddenBuffers": false,
+	// coc-flutter-tools settings
 	"flutter.outlineWidth": 40,
 	"flutter.outlineIconPadding": 0,
 	"flutter.UIPath": true,
 	"flutter.openDevLogSplitCommand": "botright 12split",
 	"flutter.lsp.initialization.onlyAnalyzeProjectsWithOpenFiles": false,
-	"tslint.autoFixOnSave": false,
+	// coc-html settings
 	"html.format.enable": true,
+	"html.format.indentInnerHtml": true,
+	"html.autoClosingTags": false,
+	// coc-tsserver settings
 	"javascript.referencesCodeLens.enable": true,
 	"javascript.showUnused": true,
 	"javascript.suggest.names": true,
 	"javascript.suggestionActions.enabled": true,
+	// coc-tslint-plugin settings
+	"tslint.autoFixOnSave": false,
+	// coc-json settings
 	"json.format.enable": true,
+	"json.trace.server": "off",
+	// coc-prettier settings
 	"prettier.printWidth": 100,
 	"prettier.eslintIntegration": true,
 	"prettier.disableLanguages": [],
@@ -82,10 +76,13 @@
 	"prettier.useTabs": true,
 	"prettier.trailingComma": "all",
 	"prettier.singleQuote": false,
-	"todolist.autoUpload": true,
-	"todolist.promptForReminder": false,
-	"coc-actions.hideCursor": false,
-	"coc-actions.showActionKind": true,
+	// coc-sh settings
+	"sh.enable": true,
+	// coc-docker settings
+	"docker.enable": true,
+	// php-intelephense settings
+	"intelephense.format.braces": "k&r",
+	// LSP settings
 	"languageserver": {
 		"lua": {
 			"command": "lua-lsp",

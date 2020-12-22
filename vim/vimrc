@@ -131,6 +131,8 @@ cabbrev w!! w !sudo tee % >/dev/null
 cnoremap w!! w !sudo tee % >/dev/null
 
 " -- basic mapping --------------------------------------------------------------
+let mapleader=";"
+let maplocalleader=";"
 map S :w<CR>
 map Q :q<CR>
 map <C-q> :q!<CR>
@@ -162,8 +164,6 @@ map <right> :vertical resize+5<CR>
 nnoremap <C-T> :tabedit<CR>
 nnoremap <silent> tr :tabNext<CR>
 nnoremap <silent> tl :tabs<CR>
-let mapleader=";"
-let maplocalleader=";"
 
 " make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
 if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
@@ -271,7 +271,7 @@ Plug 'dgryski/vim-godef'
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
 Plug 'scrooloose/syntastic'
-Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'neoclide/jsonc.vim', { 'for': ['json', 'jsonc'] }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['php', 'html', 'javascript', 'css'] }
 Plug 'yuezk/vim-js', { 'for': ['php', 'html', 'javascript'] }
 Plug 'mattn/emmet-vim' " this plug for html
@@ -355,12 +355,11 @@ let g:startify_session_autoload=1
 
 " -- coc.nvim setting ----------------------------------------------------------
 let g:coc_global_extensions = [
-    \ 'coc-actions',
     \ 'coc-css',
-    \ 'coc-explorer',
     \ 'coc-flutter-tools',
     \ 'coc-gitignore',
     \ 'coc-html',
+    \ 'coc-highlight', 
     \ 'coc-json',
     \ 'coc-lists',
     \ 'coc-prettier',
@@ -368,13 +367,13 @@ let g:coc_global_extensions = [
     \ 'coc-phpls',
     \ 'coc-snippets',
     \ 'coc-syntax',
-    \ 'coc-todolist',
     \ 'coc-translator',
     \ 'coc-tslint-plugin',
     \ 'coc-tsserver',
     \ 'coc-vimlsp',
     \ 'coc-yaml',
     \ 'coc-sh',
+    \ 'coc-markdownlint',
     \ 'coc-template',
     \ 'coc-clangd']
 set hidden
@@ -483,8 +482,8 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let python_highlight_all=1
 if has('win32')
-	set guifont=Hermit:h14
-	set guifontwide=Microsoft_YaHei_Mono:h14
+    set guifont=Hermit:h14
+    set guifontwide=Microsoft_YaHei_Mono:h14
 endif
 
 " -- one --------------------------------------------------------------------
@@ -500,12 +499,12 @@ let match_paren_style = 1
 " -- theme main -------------------------------------------------------------
 "colorscheme one
 "let g:airline_theme='one'
-"colorscheme dracula
-"let g:airline_theme='dracula'
+colorscheme dracula
+let g:airline_theme='dracula'
 "colorscheme ayu
 "let g:airline_theme='ayu'
-colorscheme xcodedark
-let g:airline_theme='xcodedark'
+"colorscheme xcodedark
+"let g:airline_theme='xcodedark'
 "colorscheme xcodedarkhc
 "colorscheme xcodelight
 "colorscheme xcodelighthc
