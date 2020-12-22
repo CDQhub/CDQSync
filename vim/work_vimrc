@@ -6,7 +6,7 @@ filetype plugin indent on
 set foldmethod=indent
 set foldlevel=99
 set autoindent
-"set expandtab
+set noexpandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -16,70 +16,70 @@ set clipboard=unnamed
 set autochdir
 
 " -- display -------------------------------------------------------------------
-set title       " change the terminal title
-set lazyredraw  " do not redraw when executing macros
-set report=0    " always report changes
-set cursorline  " highlight current line
+set title		" change the terminal title
+set lazyredraw	" do not redraw when executing macros
+set report=0	" always report changes
+set cursorline	" highlight current line
 set termguicolors
 if has("autocmd")
   augroup vim
-    autocmd!
-    autocmd filetype vim set textwidth=80
+	autocmd!
+	autocmd filetype vim set textwidth=80
   augroup END
   augroup windows
-    autocmd!
-    autocmd VimResized * :wincmd = " resize splits when the window is resized
+	autocmd!
+	autocmd VimResized * :wincmd = " resize splits when the window is resized
   augroup END
 endif
 if has("gui_running")
-  set cursorcolumn  " highlight current column
+  set cursorcolumn	" highlight current column
 endif
 if exists("+relativenumber")
   if v:version >= 400
-    set number
+	set number
   endif
   set relativenumber  " show relative line numbers
   set numberwidth=3   " narrow number column
   " cycles between relative / absolute / no numbering
   if v:version >= 400
-    function! RelativeNumberToggle()
-      if (&number == 1 && &relativenumber == 1)
-        set nonumber
-        set relativenumber relativenumber?
-      elseif (&number == 0 && &relativenumber == 1)
-        set norelativenumber
-        set number number?
-      elseif (&number == 1 && &relativenumber == 0)
-        set norelativenumber
-        set nonumber number?
-      else
-        set number
-        set relativenumber relativenumber?
-      endif
-    endfunc
+	function! RelativeNumberToggle()
+	  if (&number == 1 && &relativenumber == 1)
+		set nonumber
+		set relativenumber relativenumber?
+	  elseif (&number == 0 && &relativenumber == 1)
+		set norelativenumber
+		set number number?
+	  elseif (&number == 1 && &relativenumber == 0)
+		set norelativenumber
+		set nonumber number?
+	  else
+		set number
+		set relativenumber relativenumber?
+	  endif
+	endfunc
   else
-    function! RelativeNumberToggle()
-      if (&relativenumber == 1)
-        set number number?
-      elseif (&number == 1)
-        set nonumber number?
-      else
-        set relativenumber relativenumber?
-      endif
-    endfunc
+	function! RelativeNumberToggle()
+	  if (&relativenumber == 1)
+		set number number?
+	  elseif (&number == 1)
+		set nonumber number?
+	  else
+		set relativenumber relativenumber?
+	  endif
+	endfunc
   endif
   nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
-else                  " fallback
-  set number          " show line numbers
+else				  " fallback
+  set number		  " show line numbers
   " inverts numbering
   nnoremap <silent> <leader>n :set number! number?<CR>
 endif
-set showmode      " always show the current editing mode
-set linebreak     " yet if enabled break at word boundaries
-set showcmd     " show partial command line (default)
+set showmode	  " always show the current editing mode
+set linebreak	  " yet if enabled break at word boundaries
+set showcmd		" show partial command line (default)
 set cmdheight=1 " height of the command line
 set wrap
-set shortmess=astT  " abbreviate messages
+set shortmess=astT	" abbreviate messages
 set shortmess+=c
 set backspace=indent,eol,start
 set scrolloff=5
@@ -92,20 +92,20 @@ set background=dark
 colorscheme default
 
 " -- searching -----------------------------------------------------------------
-set wrapscan    " wrap around when searching
-set incsearch   " show match results while typing search pattern
+set wrapscan	" wrap around when searching
+set incsearch	" show match results while typing search pattern
 if (&t_Co > 2 || has("gui_running"))
-  set hlsearch  " highlight search terms
+  set hlsearch	" highlight search terms
 endif
 set showmatch
 set ignorecase
 set smartcase
 
 " -- command mode --------------------------------------------------------------
-set wildmenu                    " enable tab completion menu
-set wildmode=longest:full,full  " complete till longest common string, then full
-set wildignore+=.git            " ignore the .git directory
-set wildignore+=*.DS_Store      " ignore Mac finder/spotlight crap
+set wildmenu					" enable tab completion menu
+set wildmode=longest:full,full	" complete till longest common string, then full
+set wildignore+=.git			" ignore the .git directory
+set wildignore+=*.DS_Store		" ignore Mac finder/spotlight crap
 if exists ("&wildignorecase")
   set wildignorecase
 endif
@@ -192,27 +192,27 @@ if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2"
 endif
 
 " -- backup and swap files -----------------------------------------------------
-set backup      " enable backup files
+set backup		" enable backup files
 set writebackup " enable backup files
-set swapfile    " enable swap files (useful when loading huge files)
+set swapfile	" enable swap files (useful when loading huge files)
 let s:vimdir=$HOME . "/.vim"
 let &backupdir=s:vimdir . "/backup"  " backups location
-let &directory=s:vimdir . "/tmp"     " swap location
+let &directory=s:vimdir . "/tmp"	 " swap location
 if exists("*mkdir")
   if !isdirectory(s:vimdir)
-    call mkdir(s:vimdir, "p")
+	call mkdir(s:vimdir, "p")
   endif
   if !isdirectory(&backupdir)
-    call mkdir(&backupdir, "p")
+	call mkdir(&backupdir, "p")
   endif
   if !isdirectory(&directory)
-    call mkdir(&directory, "p")
+	call mkdir(&directory, "p")
   endif
 endif
 set backupskip+=*.tmp " skip backup for *.tmp
 if has("persistent_undo")
   let &undodir=&backupdir
-  set undofile  " enable persistent undo
+  set undofile	" enable persistent undo
 endif
 let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 

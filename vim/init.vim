@@ -6,7 +6,7 @@ filetype plugin indent on
 set foldmethod=indent
 set foldlevel=99
 set autoindent
-"set expandtab
+set noexpandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -16,70 +16,70 @@ set clipboard=unnamed
 set autochdir
 
 " -- display -------------------------------------------------------------------
-set title       " change the terminal title
-set lazyredraw  " do not redraw when executing macros
-set report=0    " always report changes
-set cursorline  " highlight current line
+set title		" change the terminal title
+set lazyredraw	" do not redraw when executing macros
+set report=0	" always report changes
+set cursorline	" highlight current line
 set termguicolors
 if has("autocmd")
   augroup vim
-    autocmd!
-    autocmd filetype vim set textwidth=80
+	autocmd!
+	autocmd filetype vim set textwidth=80
   augroup END
   augroup windows
-    autocmd!
-    autocmd VimResized * :wincmd = " resize splits when the window is resized
+	autocmd!
+	autocmd VimResized * :wincmd = " resize splits when the window is resized
   augroup END
 endif
 if has("gui_running")
-  set cursorcolumn  " highlight current column
+  set cursorcolumn	" highlight current column
 endif
 if exists("+relativenumber")
   if v:version >= 400
-    set number
+	set number
   endif
   set relativenumber  " show relative line numbers
   set numberwidth=3   " narrow number column
   " cycles between relative / absolute / no numbering
   if v:version >= 400
-    function! RelativeNumberToggle()
-      if (&number == 1 && &relativenumber == 1)
-        set nonumber
-        set relativenumber relativenumber?
-      elseif (&number == 0 && &relativenumber == 1)
-        set norelativenumber
-        set number number?
-      elseif (&number == 1 && &relativenumber == 0)
-        set norelativenumber
-        set nonumber number?
-      else
-        set number
-        set relativenumber relativenumber?
-      endif
-    endfunc
+	function! RelativeNumberToggle()
+	  if (&number == 1 && &relativenumber == 1)
+		set nonumber
+		set relativenumber relativenumber?
+	  elseif (&number == 0 && &relativenumber == 1)
+		set norelativenumber
+		set number number?
+	  elseif (&number == 1 && &relativenumber == 0)
+		set norelativenumber
+		set nonumber number?
+	  else
+		set number
+		set relativenumber relativenumber?
+	  endif
+	endfunc
   else
-    function! RelativeNumberToggle()
-      if (&relativenumber == 1)
-        set number number?
-      elseif (&number == 1)
-        set nonumber number?
-      else
-        set relativenumber relativenumber?
-      endif
-    endfunc
+	function! RelativeNumberToggle()
+	  if (&relativenumber == 1)
+		set number number?
+	  elseif (&number == 1)
+		set nonumber number?
+	  else
+		set relativenumber relativenumber?
+	  endif
+	endfunc
   endif
   nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
-else                  " fallback
-  set number          " show line numbers
+else				  " fallback
+  set number		  " show line numbers
   " inverts numbering
   nnoremap <silent> <leader>n :set number! number?<CR>
 endif
-set showmode      " always show the current editing mode
-set linebreak     " yet if enabled break at word boundaries
-set showcmd     " show partial command line (default)
+set showmode	  " always show the current editing mode
+set linebreak	  " yet if enabled break at word boundaries
+set showcmd		" show partial command line (default)
 set cmdheight=1 " height of the command line
 set wrap
-set shortmess=astT  " abbreviate messages
+set shortmess=astT	" abbreviate messages
 set shortmess+=c
 set backspace=indent,eol,start
 set scrolloff=5
@@ -91,22 +91,22 @@ set background=dark
 colorschem elflord
 
 " -- searching -----------------------------------------------------------------
-set wrapscan    " wrap around when searching
-set incsearch   " show match results while typing search pattern
+set wrapscan	" wrap around when searching
+set incsearch	" show match results while typing search pattern
 if (&t_Co > 2 || has("gui_running"))
-    set hlsearch  " highlight search terms
+	set hlsearch  " highlight search terms
 endif
 set showmatch
 set ignorecase
 set smartcase
 
 " -- command mode --------------------------------------------------------------
-set wildmenu                    " enable tab completion menu
-set wildmode=longest:full,full  " complete till longest common string, then full
-set wildignore+=.git            " ignore the .git directory
-set wildignore+=*.DS_Store      " ignore Mac finder/spotlight crap
+set wildmenu					" enable tab completion menu
+set wildmode=longest:full,full	" complete till longest common string, then full
+set wildignore+=.git			" ignore the .git directory
+set wildignore+=*.DS_Store		" ignore Mac finder/spotlight crap
 if exists ("&wildignorecase")
-    set wildignorecase
+	set wildignorecase
 endif
 
 " -- scroll lines that are too long just slow when a line is too long ----------
@@ -165,52 +165,52 @@ nnoremap <silent> tl :tabs<CR>
 
 " make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
 if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-    execute "set <xHome>=\e[1;*H"
-    execute "set <xEnd>=\e[1;*F"
-    execute "set <Insert>=\e[2;*~"
-    execute "set <Delete>=\e[3;*~"
-    execute "set <PageUp>=\e[5;*~"
-    execute "set <PageDown>=\e[6;*~"
-    execute "set <xF1>=\e[1;*P"
-    execute "set <xF2>=\e[1;*Q"
-    execute "set <xF3>=\e[1;*R"
-    execute "set <xF4>=\e[1;*S"
-    execute "set <F5>=\e[15;*~"
-    execute "set <F6>=\e[17;*~"
-    execute "set <F7>=\e[18;*~"
-    execute "set <F8>=\e[19;*~"
-    execute "set <F9>=\e[20;*~"
-    execute "set <F10>=\e[21;*~"
-    execute "set <F11>=\e[23;*~"
-    execute "set <F12>=\e[24;*~"
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
+	execute "set <xHome>=\e[1;*H"
+	execute "set <xEnd>=\e[1;*F"
+	execute "set <Insert>=\e[2;*~"
+	execute "set <Delete>=\e[3;*~"
+	execute "set <PageUp>=\e[5;*~"
+	execute "set <PageDown>=\e[6;*~"
+	execute "set <xF1>=\e[1;*P"
+	execute "set <xF2>=\e[1;*Q"
+	execute "set <xF3>=\e[1;*R"
+	execute "set <xF4>=\e[1;*S"
+	execute "set <F5>=\e[15;*~"
+	execute "set <F6>=\e[17;*~"
+	execute "set <F7>=\e[18;*~"
+	execute "set <F8>=\e[19;*~"
+	execute "set <F9>=\e[20;*~"
+	execute "set <F10>=\e[21;*~"
+	execute "set <F11>=\e[23;*~"
+	execute "set <F12>=\e[24;*~"
 endif
 
 " -- backup and swap files -----------------------------------------------------
-set backup      " enable backup files
+set backup		" enable backup files
 set writebackup " enable backup files
-set swapfile    " enable swap files (useful when loading huge files)
+set swapfile	" enable swap files (useful when loading huge files)
 let s:vimdir=$HOME . "/.config/nvim"
 let &backupdir=s:vimdir . "/backup"  " backups location
-let &directory=s:vimdir . "/tmp"     " swap location
+let &directory=s:vimdir . "/tmp"	 " swap location
 if exists("*mkdir")
-    if !isdirectory(s:vimdir)
-        call mkdir(s:vimdir, "p")
-    endif
-    if !isdirectory(&backupdir)
-        call mkdir(&backupdir, "p")
-    endif
-    if !isdirectory(&directory)
-        call mkdir(&directory, "p")
-    endif
+	if !isdirectory(s:vimdir)
+		call mkdir(s:vimdir, "p")
+	endif
+	if !isdirectory(&backupdir)
+		call mkdir(&backupdir, "p")
+	endif
+	if !isdirectory(&directory)
+		call mkdir(&directory, "p")
+	endif
 endif
 set backupskip+=*.tmp " skip backup for *.tmp
 if has("persistent_undo")
-    let &undodir=&backupdir
-    set undofile  " enable persistent undo
+	let &undodir=&backupdir
+	set undofile  " enable persistent undo
 endif
 let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 
@@ -221,8 +221,8 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s
 
 " -- auto install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " -- plugin setting ------------------------------------------------------------
@@ -322,24 +322,24 @@ let g:nerdtree_tabs_open_on_console_startup=1
 
 " -- fzf settings -------------------------------------------------------------
 if exists('$TMUX')
-    let g:fzf_layout = { 'tmux': '-p90%,60%' }
+	let g:fzf_layout = { 'tmux': '-p90%,60%' }
 else
-    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 endif
 
 " -- nerdtree-git-plugin ------------------------------------------------------
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+	\ "Modified"  : "✹",
+	\ "Staged"	  : "✚",
+	\ "Untracked" : "✭",
+	\ "Renamed"   : "➜",
+	\ "Unmerged"  : "═",
+	\ "Deleted"   : "✖",
+	\ "Dirty"	  : "✗",
+	\ "Clean"	  : "✔︎",
+	\ 'Ignored'   : '☒',
+	\ "Unknown"   : "?"
+	\ }
 let g:NERDTreeShowIgnoredStatus = 0
 
 " -- nerdcommenter setting -----------------------------------------------------
@@ -353,57 +353,59 @@ let g:startify_session_autoload=1
 
 " -- coc.nvim setting ----------------------------------------------------------
 let g:coc_global_extensions = [
-    \ 'coc-css',
-    \ 'coc-flutter-tools',
-    \ 'coc-gitignore',
-    \ 'coc-html',
-    \ 'coc-highlight', 
-    \ 'coc-json',
-    \ 'coc-lists',
-    \ 'coc-prettier',
-    \ 'coc-go',
-    \ 'coc-phpls',
-    \ 'coc-snippets',
-    \ 'coc-syntax',
-    \ 'coc-translator',
-    \ 'coc-tslint-plugin',
-    \ 'coc-tsserver',
-    \ 'coc-vimlsp',
-    \ 'coc-yaml',
-    \ 'coc-sh',
-    \ 'coc-docker',
-    \ 'coc-markdownlint',
-    \ 'coc-template',
-    \ 'coc-clangd']
+	\ 'coc-css',
+	\ 'coc-flutter-tools',
+	\ 'coc-gitignore',
+	\ 'coc-html',
+	\ 'coc-highlight', 
+	\ 'coc-json',
+	\ 'coc-lists',
+	\ 'coc-prettier',
+	\ 'coc-go',
+	\ 'coc-phpls',
+	\ 'coc-xml',
+	\ 'coc-cmake',
+	\ 'coc-snippets',
+	\ 'coc-syntax',
+	\ 'coc-translator',
+	\ 'coc-tslint-plugin',
+	\ 'coc-tsserver',
+	\ 'coc-vimlsp',
+	\ 'coc-yaml',
+	\ 'coc-sh',
+	\ 'coc-docker',
+	\ 'coc-markdownlint',
+	\ 'coc-template',
+	\ 'coc-clangd']
 set hidden
 set updatetime=200
 
 if has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-    set signcolumn=number
+	" Recently vim can merge signcolumn and number column into one
+	set signcolumn=number
 else
-    set signcolumn=yes
+	set signcolumn=yes
 endif
 inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " Use <c-space> to trigger completion.
 if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
+	inoremap <silent><expr> <c-space> coc#refresh()
 else
-    inoremap <silent><expr> <c-@> coc#refresh()
+	inoremap <silent><expr> <c-@> coc#refresh()
 endif
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 if exists('*complete_info')
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -417,30 +419,30 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> <LEADER>h :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
 endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
-xmap <leader>F  <Plug>(coc-format-selected)
-nmap <leader>F  <Plug>(coc-format-selected)
+xmap <leader>F	<Plug>(coc-format-selected)
+nmap <leader>F	<Plug>(coc-format-selected)
 " fold by coc
 augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder.
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	autocmd!
+	" Setup formatexpr specified filetype(s).
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	" Update signature help on jump placeholder.
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 " Remap for do codeAction of selected region
 function! s:cocActionsOpenFromSelected(type) abort
-    execute 'CocCommand actions.open ' . a:type
+	execute 'CocCommand actions.open ' . a:type
 endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
