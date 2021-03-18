@@ -133,7 +133,7 @@ let mapleader=";"
 let maplocalleader=";"
 map S :w<CR>
 map Q :q<CR>
-map <C-q> :q!<CR>
+map <leader>q :q!<CR>
 map <leader>r :source $MYVIMRC<CR>
 map sl :set nosplitright<CR>:vsplit<CR>
 map sr :set splitright<CR>:vsplit<CR>
@@ -375,7 +375,6 @@ let g:coc_global_extensions = [
 	\ 'coc-sh',
 	\ 'coc-docker',
 	\ 'coc-markdownlint',
-	\ 'coc-template',
 	\ 'coc-clangd']
 set hidden
 set updatetime=200
