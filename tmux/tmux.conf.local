@@ -20,7 +20,7 @@
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_new_window_retain_current_path=false
+tmux_conf_new_window_retain_current_path=true
 
 # new pane retains current path, possible values are:
 #   - true (default)
@@ -30,7 +30,7 @@ tmux_conf_new_pane_retain_current_path=true
 # new pane tries to reconnect ssh sessions (experimental), possible values are:
 #   - true
 #   - false (default)
-tmux_conf_new_pane_reconnect_ssh=true
+tmux_conf_new_pane_reconnect_ssh=false
 
 # prompt for session name when creating a new session, possible values are:
 #   - true
@@ -320,15 +320,11 @@ tmux_conf_theme_clock_style="24"
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
-set -g default-command zsh
-set -g display-panes-time 1500 # slightly longer pane indicators display time
-set -s escape-time 30                     # faster command sequences
-set -sg repeat-time 300                   # increase repeat timeout
 
 # increase history size
 set -g history-limit 10000
@@ -351,7 +347,51 @@ bind C-a send-prefix
 # move status line to top
 set -g status-position top
 
+# -- tpm -----------------------------------------------------------------------
+
+# while I don't use tpm myself, many people requested official support so here
+# is a seamless integration that automatically installs plugins in parallel
+
+# whenever a plugin introduces a variable to be used in 'status-left' or
+# 'status-right', you can use it in 'tmux_conf_theme_status_left' and
+# 'tmux_conf_theme_status_right' variables.
+
+# by default, launching tmux will update tpm and all plugins
+#   - true (default)
+#   - false
+tmux_conf_update_plugins_on_launch=true
+
+# by default, reloading the configuration will update tpm and all plugins
+#   - true (default)
+#   - false
+tmux_conf_update_plugins_on_reload=true
+
+# /!\ do not add set -g @plugin 'tmux-plugins/tpm'
+# /!\ do not add run '~/.tmux/plugins/tpm/tpm'
+
+# to enable a plugin, use the 'set -g @plugin' syntax:
+# visit https://github.com/tmux-plugins for available plugins
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'dracula/tmux'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+
+set -g @resurrect-dir '${TMUX_TMPDIR}/resurrect'
+set -g @continuum-restore 'on'
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-save-interval '60'
+set -g @continuum-restore 'on'
+set -g @continuum-boot 'on'
+
+
 # -- custom variables ----------------------------------------------------------
+
 # to define a custom #{foo} variable, define a POSIX shell function between the
 # '# EOF' and the '# "$@"' lines. Please note that the opening brace { character
 # must be on the same line as the function name otherwise the parse won't detect
@@ -360,10 +400,10 @@ set -g status-position top
 # then, use #{foo} in e.g. the 'tmux_conf_theme_status_left' or the
 # 'tmux_conf_theme_status_right' variables.
 
-set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.tmux/plugins/'
-
 # # /!\ do not remove the following line
 # EOF
+#
+# # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
 # weather() {
 #   curl -m 1 wttr.in?format=3 2>/dev/null
@@ -371,32 +411,8 @@ set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.tmux/plugins/'
 # }
 #
 # online() {
-#   ping -t 1 -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+#   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
 # }
 #
 # "$@"
 # # /!\ do not remove the previous line
-
-# tpm config
-# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm , use prefix + I install plugins
-# List of plugins
-#    odedlaz/tmux-onedark-theme            \
-set -g @tpm_plugins '                      \
-	tmux-plugins/tpm                       \
-	tmux-plugins/tmux-sensible             \
-	tmux-plugins/tmux-prefix-highlight     \
-	tmux-plugins/tmux-resurrect            \
-	tmux-plugins/tmux-continuum            \
-	tmux-plugins/tmux-copycat              \
-	tmux-plugins/tmux-yank                 \
-	dracula/tmux                           \
-'
-set -g @continuum-restore 'on'
-set -g @resurrect-strategy-vim 'session'
-set -g @resurrect-strategy-nvim 'session'
-set -g @resurrect-capture-pane-contents 'on'
-set -g @continuum-save-interval '60'
-set -g @continuum-restore 'on'
-#set -g @continuum-boot 'on'
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'

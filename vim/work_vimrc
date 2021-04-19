@@ -89,7 +89,7 @@ let $t_ut=''
 set t_Co=256
 set term=xterm
 set background=dark
-colorscheme default
+colorscheme desert
 
 " -- searching -----------------------------------------------------------------
 set wrapscan	" wrap around when searching

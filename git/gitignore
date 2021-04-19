@@ -15,9 +15,9 @@ Thumbs.db
 
 # Golang files
 go.sum
+**/pkg/**
+**/testdata/*.txt
 
 # common project tmp files
 logs/**
-bin/**
-!bin/*.sh
 **/data/**
