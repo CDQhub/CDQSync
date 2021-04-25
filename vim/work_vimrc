@@ -135,7 +135,7 @@ let mapleader=";"
 let maplocalleader=";"
 map S :w<CR>
 map Q :q<CR>
-map <leader>q :q!<CR>
+map <C-Q> :q!<CR>
 map <leader>r :source $MYVIMRC<CR>
 map sl :set nosplitright<CR>:vsplit<CR>
 map sr :set splitright<CR>:vsplit<CR>
@@ -143,8 +143,13 @@ map su :set nosplitbelow<CR>:split<CR>
 map sd :set splitbelow<CR>:split<CR>
 nnoremap < <<
 nnoremap > >>
-nnoremap B <home>
-nnoremap E <end>
+nnoremap H <home>
+nnoremap L <end>
+inoremap <C-H> <home>
+inoremap <C-L> <end>
+inoremap <C-E> <C-right>
+inoremap <C-B> <C-left>
+inoremap jj <esc>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -154,9 +159,6 @@ noremap <silent> <leader>y "+y
 noremap <silent> <leader>Y "+Y
 noremap <silent> <leader>p "+p
 noremap <silent> <leader>P "+P
-inoremap jj <esc>
-inoremap <C-A> <home>
-inoremap <C-E> <end>
 map <up> :res +5<CR>
 map <down> :res -5<CR>
 map <left> :vertical resize-5<CR>
