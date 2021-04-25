@@ -7,9 +7,9 @@ set foldmethod=indent
 set foldlevel=99
 set autoindent
 set noexpandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=6
+set shiftwidth=6
+set softtabstop=6
 set smarttab
 set history=88
 set clipboard=unnamed
@@ -88,7 +88,7 @@ set scrolloff=5
 let $t_ut=''
 set t_Co=256
 set background=dark
-colorschem elflord
+colorscheme desert
 
 " -- searching -----------------------------------------------------------------
 set wrapscan	" wrap around when searching
@@ -112,12 +112,6 @@ endif
 " -- scroll lines that are too long just slow when a line is too long ----------
 set synmaxcol=1000
 set ttyfast
-set lazyredraw
-
-" -- undo file. Note: you must create ~/.vim/undo first  ------------------------
-set undofile
-set undodir=~/.vim/undo
-set undolevels=100
 
 " -- expand filenames with forward slash ----------------------------------------
 if exists("+shellslash")
@@ -213,6 +207,7 @@ set backupskip+=*.tmp " skip backup for *.tmp
 if has("persistent_undo")
 	let &undodir=&backupdir
 	set undofile  " enable persistent undo
+	set undolevels=100
 endif
 let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 
