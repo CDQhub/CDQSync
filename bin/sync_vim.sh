@@ -7,7 +7,7 @@
 ## @Description : sync vimrc and mkdir .vim/*
 ##########################################
 
-set -ex
+set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## for vimrc config
