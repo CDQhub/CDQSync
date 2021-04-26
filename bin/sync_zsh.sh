@@ -7,7 +7,7 @@
 ## @Description : sync zshrc and mkdir user tmp dir
 ##########################################
 
-set -e
+set -ex
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## install zsh
@@ -31,14 +31,11 @@ if [[ -d ${HOME}/.oh-my-zsh ]]; then
 	[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
-## sync zsh config if file not exist
-if [[ ! -f "${HOME}/.zshrc" ]]; then
-	# get zshrc
-	echo "cp my zshrc to ~/.zshrc" >&2
-	cp "${WORKDIR}/zsh/zshrc" "${HOME}/.zshrc"
-fi
-
-source "${HOME}/.zshrc"
+# get zshrc
+echo "cp my zshrc to ~/.zshrc" >&2
+cp "${WORKDIR}/zsh/zshrc" "${HOME}/.zshrc"
+echo "cp my p10k to ~/.p10k.zsh" >&2
+cp "${WORKDIR}/zsh/p10k.zsh" "${HOME}/.p10k.zsh"
 
 ## mkdir MYPATH
 [ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"

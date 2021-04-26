@@ -13,7 +13,6 @@ WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 ## sync bashrc if file not exist
 echo "cp my bashrc to ~/.bashrc"
 cp "${WORKDIR}/bash/bashrc" "${HOME}/.bashrc"
-source "${HOME}/.bashrc"
 
 ## mkdir MYPATH
 [ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"
