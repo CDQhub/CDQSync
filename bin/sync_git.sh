@@ -10,5 +10,5 @@
 set -e
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
-cp -f ${WORKDIR}/git/gitconfig ${HOME}/.gitconfig
-cp -f ${WORKDIR}/git/gitignore ${HOME}/.config/gitignore
+cp -f "${WORKDIR}/git/gitconfig" "${HOME}/.gitconfig"
+cp -f "${WORKDIR}/git/gitignore" "${HOME}/.config/gitignore"

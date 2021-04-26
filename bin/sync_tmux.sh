@@ -12,23 +12,24 @@ WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## install tmux
 if [[ -z "$(tmux -V 2>/dev/null)" ]]; then
-    echo "check not install tmux, then will install tmux secondly"
-    git clone https://github.com/tmux/tmux.git
-    sh tmux/autogen.sh
-    ./tmux/configure && make && sudo make install
-    rm -rf ./tmux
+	echo "check not install tmux, then will install tmux secondly"
+	git clone https://github.com/tmux/tmux.git
+	sh tmux/autogen.sh
+	./tmux/configure && make && sudo make install
+	rm -rf ./tmux
 fi
 
 ## sync tmux.conf.local
 if [[ ! -d ${HOME}/.tmux ]]; then
-    echo "install oh-my-tmux"
-    git clone https://github.com/gpakosz/.tmux.git ${HOME}/.tmux
-    ln -s -f ${HOME}/.tmux/.tmux.conf ${HOME}/.tmux.conf
-    cp ${WORKDIR}/tmux/tmux.conf.local ${HOME}/.tmux.conf.local
+	echo "install oh-my-tmux"
+	git clone https://github.com/gpakosz/.tmux.git ${HOME}/.tmux
+	ln -s -f ${HOME}/.tmux/.tmux.conf ${HOME}/.tmux.conf
+	cp ${WORKDIR}/tmux/tmux.conf.local ${HOME}/.tmux.conf.local
 fi
 
-## install tpm
-if [[ ! -d ${HOME}/.tmux/plugins/tpm ]]; then
-    echo "install tpm"
-    git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
-fi
+# // oh-my-tmux support build-in tpm
+# ## install tpm
+# if [[ ! -d ${HOME}/.tmux/plugins/tpm ]]; then
+# 	echo "install tpm"
+# 	git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+# fi

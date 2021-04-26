@@ -22,57 +22,57 @@ set report=0	" always report changes
 set cursorline	" highlight current line
 set termguicolors
 if has("autocmd")
-  augroup vim
-	autocmd!
-	autocmd filetype vim set textwidth=80
-  augroup END
-  augroup windows
-	autocmd!
-	autocmd VimResized * :wincmd = " resize splits when the window is resized
-  augroup END
+	augroup vim
+		autocmd!
+		autocmd filetype vim set textwidth=80
+	augroup END
+	augroup windows
+		autocmd!
+		autocmd VimResized * :wincmd = " resize splits when the window is resized
+	augroup END
 endif
 if has("gui_running")
-  set cursorcolumn	" highlight current column
+	set cursorcolumn	" highlight current column
 endif
 if exists("+relativenumber")
-  if v:version >= 400
-	set number
-  endif
-  set relativenumber  " show relative line numbers
-  set numberwidth=3   " narrow number column
-  " cycles between relative / absolute / no numbering
-  if v:version >= 400
-	function! RelativeNumberToggle()
-	  if (&number == 1 && &relativenumber == 1)
-		set nonumber
-		set relativenumber relativenumber?
-	  elseif (&number == 0 && &relativenumber == 1)
-		set norelativenumber
-		set number number?
-	  elseif (&number == 1 && &relativenumber == 0)
-		set norelativenumber
-		set nonumber number?
-	  else
+	if v:version >= 400
 		set number
-		set relativenumber relativenumber?
-	  endif
-	endfunc
-  else
-	function! RelativeNumberToggle()
-	  if (&relativenumber == 1)
-		set number number?
-	  elseif (&number == 1)
-		set nonumber number?
-	  else
-		set relativenumber relativenumber?
-	  endif
-	endfunc
-  endif
-  nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+	endif
+	set relativenumber  " show relative line numbers
+	set numberwidth=3   " narrow number column
+	" cycles between relative / absolute / no numbering
+	if v:version >= 400
+		function! RelativeNumberToggle()
+			if (&number == 1 && &relativenumber == 1)
+				set nonumber
+				set relativenumber relativenumber?
+			elseif (&number == 0 && &relativenumber == 1)
+				set norelativenumber
+				set number number?
+			elseif (&number == 1 && &relativenumber == 0)
+				set norelativenumber
+				set nonumber number?
+			else
+				set number
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	else
+		function! RelativeNumberToggle()
+			if (&relativenumber == 1)
+				set number number?
+			elseif (&number == 1)
+				set nonumber number?
+			else
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	endif
+	nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
 else				  " fallback
-  set number		  " show line numbers
-  " inverts numbering
-  nnoremap <silent> <leader>n :set number! number?<CR>
+	set number		  " show line numbers
+	" inverts numbering
+	nnoremap <silent> <leader>n :set number! number?<CR>
 endif
 set showmode	  " always show the current editing mode
 set linebreak	  " yet if enabled break at word boundaries
@@ -95,7 +95,7 @@ colorscheme desert
 set wrapscan	" wrap around when searching
 set incsearch	" show match results while typing search pattern
 if (&t_Co > 2 || has("gui_running"))
-  set hlsearch	" highlight search terms
+	set hlsearch	" highlight search terms
 endif
 set showmatch
 set ignorecase
@@ -107,7 +107,7 @@ set wildmode=longest:full,full	" complete till longest common string, then full
 set wildignore+=.git			" ignore the .git directory
 set wildignore+=*.DS_Store		" ignore Mac finder/spotlight crap
 if exists ("&wildignorecase")
-  set wildignorecase
+	set wildignorecase
 endif
 
 " -- scroll lines that are too long just slow when a line is too long ----------
@@ -118,7 +118,7 @@ set lazyredraw
 
 " -- expand filenames with forward slash ----------------------------------------
 if exists("+shellslash")
-  set shellslash
+	set shellslash
 endif
 
 " -- sudo then write ------------------------------------------------------------
@@ -164,28 +164,28 @@ nnoremap <silent> tl :tabs<CR>
 
 " make arrow keys, home/end/pgup/pgdown, and function keys work when inside tmux
 if exists('$TMUX') && (system("tmux show-options -wg xterm-keys | cut -d' ' -f2") =~ '^on')
-  execute "set <xUp>=\e[1;*A"
-  execute "set <xDown>=\e[1;*B"
-  execute "set <xRight>=\e[1;*C"
-  execute "set <xLeft>=\e[1;*D"
-  execute "set <xHome>=\e[1;*H"
-  execute "set <xEnd>=\e[1;*F"
-  execute "set <Insert>=\e[2;*~"
-  execute "set <Delete>=\e[3;*~"
-  execute "set <PageUp>=\e[5;*~"
-  execute "set <PageDown>=\e[6;*~"
-  execute "set <xF1>=\e[1;*P"
-  execute "set <xF2>=\e[1;*Q"
-  execute "set <xF3>=\e[1;*R"
-  execute "set <xF4>=\e[1;*S"
-  execute "set <F5>=\e[15;*~"
-  execute "set <F6>=\e[17;*~"
-  execute "set <F7>=\e[18;*~"
-  execute "set <F8>=\e[19;*~"
-  execute "set <F9>=\e[20;*~"
-  execute "set <F10>=\e[21;*~"
-  execute "set <F11>=\e[23;*~"
-  execute "set <F12>=\e[24;*~"
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
+	execute "set <xHome>=\e[1;*H"
+	execute "set <xEnd>=\e[1;*F"
+	execute "set <Insert>=\e[2;*~"
+	execute "set <Delete>=\e[3;*~"
+	execute "set <PageUp>=\e[5;*~"
+	execute "set <PageDown>=\e[6;*~"
+	execute "set <xF1>=\e[1;*P"
+	execute "set <xF2>=\e[1;*Q"
+	execute "set <xF3>=\e[1;*R"
+	execute "set <xF4>=\e[1;*S"
+	execute "set <F5>=\e[15;*~"
+	execute "set <F6>=\e[17;*~"
+	execute "set <F7>=\e[18;*~"
+	execute "set <F8>=\e[19;*~"
+	execute "set <F9>=\e[20;*~"
+	execute "set <F10>=\e[21;*~"
+	execute "set <F11>=\e[23;*~"
+	execute "set <F12>=\e[24;*~"
 endif
 
 " -- backup and swap files -----------------------------------------------------
@@ -196,21 +196,21 @@ let s:vimdir=$HOME . "/.vim"
 let &backupdir=s:vimdir . "/backup"  " backups location
 let &directory=s:vimdir . "/tmp"	 " swap location
 if exists("*mkdir")
-  if !isdirectory(s:vimdir)
-	call mkdir(s:vimdir, "p")
-  endif
-  if !isdirectory(&backupdir)
-	call mkdir(&backupdir, "p")
-  endif
-  if !isdirectory(&directory)
-	call mkdir(&directory, "p")
-  endif
+	if !isdirectory(s:vimdir)
+		call mkdir(s:vimdir, "p")
+	endif
+	if !isdirectory(&backupdir)
+		call mkdir(&backupdir, "p")
+	endif
+	if !isdirectory(&directory)
+		call mkdir(&directory, "p")
+	endif
 endif
 set backupskip+=*.tmp " skip backup for *.tmp
 if has("persistent_undo")
-  let &undodir=&backupdir
-  set undofile	" enable persistent undo
-  set undolevels=100
+	let &undodir=&backupdir
+	set undofile	" enable persistent undo
+	set undolevels=100
 endif
 let &viminfo=&viminfo . ",n" . s:vimdir . "/.viminfo" " viminfo location
 

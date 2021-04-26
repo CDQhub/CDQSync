@@ -1,25 +1,25 @@
-###
-# @Author      : caodaqian
-# @since       : 2020-09-09 10:41:53
-# @LastEditors : caodaqian
-# @lastTime    : 2020-09-09 10:42:09
-# @Description : .bashrc
-###
+##########################################
+## @Author      : caodaqian
+## @CreateTime  : 2020-09-09 10:45:26
+## @LastEditors : caodaqian
+## @LastEditTime: 2020-12-03 16:14:04
+## @Description : .bashrc
+##########################################
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+	. /etc/bashrc
 fi
 
 # User locale config
-[ -f ${HOME}/.config/locale.conf ] && . ${HOME}/.config/locale.conf
+[ -f "${HOME}/.config/locale.conf" ] && . "${HOME}/.config/locale.conf"
 
 # User specific aliases and functions
-[ -f ${HOME}/.config/alias.conf ] && . ${HOME}/.config/alias.conf
+[ -f "${HOME}/.config/alias.conf" ] && . "${HOME}/.config/alias.conf"
 
 # env config
-[ -f ${HOME}/.config/env.conf ] && . ${HOME}/.config/env.conf
+[ -f "${HOME}/.config/env.conf" ] && . "${HOME}/.config/env.conf"
 
 ## fzf config
 bind -x '"\C-f":find-in-file'
-[ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
+[ -f "${HOME}/.fzf.bash" ] && source "${HOME}/.fzf.bash"

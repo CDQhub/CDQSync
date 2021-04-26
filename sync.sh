@@ -37,7 +37,7 @@ echo "finish sync git!" >&2
 echo "**********************" >&2
 
 ## install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
 ${HOME}/.fzf/install
 echo "finish install fzf!" >&2
 echo "**********************" >&2
@@ -49,16 +49,15 @@ echo "**********************" >&2
 
 ## sync env config
 echo "cp my config file to ~/.config" >&2
-[ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config
-cp -f ${WORKDIR}/config/*.conf ${HOME}/.config
+[ ! -d "${HOME}/.config" ] && mkdir "${HOME}/.config"
+cp -f "${WORKDIR}/config/*.conf" "${HOME}/.config"
 echo "**********************" >&2
 
 ## mkdir env config dir
 echo "mkdir env config dir" >&2
-[ ! -d ${HOME}/.software ] && mkdir ${HOME}/.software
-[ ! -d ${MYTMP} ] && mkdir -p ${MYTMP}
-[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
-[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}
+[ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"
+[ ! -d "${GOTMP}" ] && mkdir -p "${GOTMP}"
+[ ! -d "${TMUXTMP}" ] && mkdir -p "${TMUXTMP}"
 echo "**********************" >&2
 
 cd -

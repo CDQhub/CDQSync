@@ -12,11 +12,10 @@ WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## sync bashrc if file not exist
 echo "cp my bashrc to ~/.bashrc"
-cp ${WORKDIR}/bash/bashrc ${HOME}/.bashrc
-source ${HOME}/.bashrc
+cp "${WORKDIR}/bash/bashrc" "${HOME}/.bashrc"
+source "${HOME}/.bashrc"
 
 ## mkdir MYPATH
-[ ! -d ${HOME}/.software ] && mkdir ${HOME}/.software
-[ ! -d ${MYTMP} ] && mkdir -p ${MYTMP}
-[ ! -d ${GOTMPDIR} ] && mkdir -p ${GOTMPDIR}
-[ ! -d ${TMUX_TMPDIR} ] && mkdir -p ${TMUX_TMPDIR}
+[ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"
+[ ! -d "${GOTMP}" ] && mkdir -p "${GOTMP}"
+[ ! -d "${TMUXTMP}" ] && mkdir -p "${TMUXTMP}"

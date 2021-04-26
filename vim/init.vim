@@ -22,57 +22,57 @@ set report=0	" always report changes
 set cursorline	" highlight current line
 set termguicolors
 if has("autocmd")
-  augroup vim
-	autocmd!
-	autocmd filetype vim set textwidth=80
-  augroup END
-  augroup windows
-	autocmd!
-	autocmd VimResized * :wincmd = " resize splits when the window is resized
-  augroup END
+	augroup vim
+		autocmd!
+		autocmd filetype vim set textwidth=80
+	augroup END
+	augroup windows
+		autocmd!
+		autocmd VimResized * :wincmd = " resize splits when the window is resized
+	augroup END
 endif
 if has("gui_running")
-  set cursorcolumn	" highlight current column
+	set cursorcolumn	" highlight current column
 endif
 if exists("+relativenumber")
-  if v:version >= 400
-	set number
-  endif
-  set relativenumber  " show relative line numbers
-  set numberwidth=3   " narrow number column
-  " cycles between relative / absolute / no numbering
-  if v:version >= 400
-	function! RelativeNumberToggle()
-	  if (&number == 1 && &relativenumber == 1)
-		set nonumber
-		set relativenumber relativenumber?
-	  elseif (&number == 0 && &relativenumber == 1)
-		set norelativenumber
-		set number number?
-	  elseif (&number == 1 && &relativenumber == 0)
-		set norelativenumber
-		set nonumber number?
-	  else
+	if v:version >= 400
 		set number
-		set relativenumber relativenumber?
-	  endif
-	endfunc
-  else
-	function! RelativeNumberToggle()
-	  if (&relativenumber == 1)
-		set number number?
-	  elseif (&number == 1)
-		set nonumber number?
-	  else
-		set relativenumber relativenumber?
-	  endif
-	endfunc
-  endif
-  nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+	endif
+	set relativenumber  " show relative line numbers
+	set numberwidth=3   " narrow number column
+	" cycles between relative / absolute / no numbering
+	if v:version >= 400
+		function! RelativeNumberToggle()
+			if (&number == 1 && &relativenumber == 1)
+				set nonumber
+				set relativenumber relativenumber?
+			elseif (&number == 0 && &relativenumber == 1)
+				set norelativenumber
+				set number number?
+			elseif (&number == 1 && &relativenumber == 0)
+				set norelativenumber
+				set nonumber number?
+			else
+				set number
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	else
+		function! RelativeNumberToggle()
+			if (&relativenumber == 1)
+				set number number?
+			elseif (&number == 1)
+				set nonumber number?
+			else
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	endif
+	nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
 else				  " fallback
-  set number		  " show line numbers
-  " inverts numbering
-  nnoremap <silent> <leader>n :set number! number?<CR>
+	set number		  " show line numbers
+	" inverts numbering
+	nnoremap <silent> <leader>n :set number! number?<CR>
 endif
 set showmode	  " always show the current editing mode
 set linebreak	  " yet if enabled break at word boundaries
@@ -115,7 +115,7 @@ set ttyfast
 
 " -- expand filenames with forward slash ----------------------------------------
 if exists("+shellslash")
-  set shellslash
+	set shellslash
 endif
 
 " -- sudo then write ------------------------------------------------------------
@@ -217,8 +217,8 @@ highlight BadWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.php,*.go,*.sh match BadWhitespace /\s\+$/
 
 " -- auto install vim-plug
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob('${HOME}/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -242,9 +242,6 @@ Plug 'iamcco/markdown-preview.vim'
 Plug 'dhruvasagar/vim-table-mode'
 
 " -- dir plugin -----------------------
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
@@ -275,7 +272,6 @@ Plug 'mattn/emmet-vim' " this plug for html
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tmhedberg/SimpylFold'
 Plug 'Chiel92/vim-autoformat'
-Plug 'preservim/nerdcommenter'
 Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less', 'go'] }
 
 call plug#end()
@@ -308,40 +304,12 @@ nnoremap <silent> gnh :call UncolorAllWords()<cr>
 nnoremap <silent> n :call WordNavigation('forward')<cr>
 nnoremap <silent> N :call WordNavigation('backward')<cr>
 
-" -- scrooloose/nerdtree setting -----------------------------------------------
-noremap ff :NERDTreeToggle<CR>
-let NERDTreeAutoCenter=1
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-let NERDTreeShowBookmarks=2
-let g:nerdtree_tabs_open_on_console_startup=1
-
 " -- fzf settings -------------------------------------------------------------
 if exists('$TMUX')
 	let g:fzf_layout = { 'tmux': '-p90%,60%' }
 else
 	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 endif
-
-" -- nerdtree-git-plugin ------------------------------------------------------
-let g:NERDTreeIndicatorMapCustom = {
-	\ "Modified"  : "✹",
-	\ "Staged"	  : "✚",
-	\ "Untracked" : "✭",
-	\ "Renamed"   : "➜",
-	\ "Unmerged"  : "═",
-	\ "Deleted"   : "✖",
-	\ "Dirty"	  : "✗",
-	\ "Clean"	  : "✔︎",
-	\ 'Ignored'   : '☒',
-	\ "Unknown"   : "?"
-	\ }
-let g:NERDTreeShowIgnoredStatus = 0
-
-" -- nerdcommenter setting -----------------------------------------------------
-let g:NERDSpaceDelims = 1
-let g:NERDTrimTrailingWhitespace = 1
 
 " -- vim-startify setting ------------------------------------------------------
 let g:startify_change_to_dir=0
@@ -350,29 +318,40 @@ let g:startify_session_autoload=1
 
 " -- coc.nvim setting ----------------------------------------------------------
 let g:coc_global_extensions = [
-	\ 'coc-css',
-	\ 'coc-flutter-tools',
-	\ 'coc-gitignore',
-	\ 'coc-html',
-	\ 'coc-highlight', 
-	\ 'coc-json',
-	\ 'coc-lists',
-	\ 'coc-prettier',
-	\ 'coc-go',
-	\ 'coc-phpls',
-	\ 'coc-xml',
+	\ 'coc-clangd',
 	\ 'coc-cmake',
+	\ 'coc-css',
+	\ 'coc-dash-complete',
+	\ 'coc-docker',
+	\ 'coc-dot-complete',
+	\ 'coc-explorer',
+	\ 'coc-flutter-tools',
+	\ 'coc-fzf-preview',
+	\ 'coc-git',
+	\ 'coc-gitignore',
+	\ 'coc-go',
+	\ 'coc-highlight',
+	\ 'coc-html',
+	\ 'coc-json',
+	\ 'coc-just-complete',
+	\ 'coc-lists',
+	\ 'coc-markdownlint',
+	\ 'coc-marketplace',
+	\ 'coc-phpls',
+	\ 'coc-phpls',
+	\ 'coc-prettier',
+	\ 'coc-sh',
+	\ 'coc-sh',
 	\ 'coc-snippets',
+	\ 'coc-sql',
 	\ 'coc-syntax',
+	\ 'coc-tabnine',
 	\ 'coc-translator',
 	\ 'coc-tslint-plugin',
 	\ 'coc-tsserver',
 	\ 'coc-vimlsp',
-	\ 'coc-yaml',
-	\ 'coc-sh',
-	\ 'coc-docker',
-	\ 'coc-markdownlint',
-	\ 'coc-clangd']
+	\ 'coc-xml',
+	\ 'coc-yaml']
 set hidden
 set updatetime=200
 
@@ -383,13 +362,13 @@ else
 	set signcolumn=yes
 endif
 inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ coc#refresh()
+		\ pumvisible() ? "\<C-n>" :
+		\ <SID>check_back_space() ? "\<TAB>" :
+		\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -416,9 +395,9 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <LEADER>h :call <SID>show_documentation()<CR>
 function! s:show_documentation()
 	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
+			execute 'h '.expand('<cword>')
 	else
-		call CocAction('doHover')
+			call CocAction('doHover')
 	endif
 endfunction
 " Highlight the symbol and its references when holding the cursor.
@@ -442,6 +421,59 @@ function! s:cocActionsOpenFromSelected(type) abort
 endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+" explorer config
+nnoremap ff :CocCommand explorer<CR>
+let g:coc_explorer_global_presets = {
+	\   '.vim': {
+	\     'root-uri': '~/.vim',
+	\   },
+	\   'cocConfig': {
+	\      'root-uri': '~/.config/coc',
+	\   },
+	\   'tab': {
+	\     'position': 'tab',
+	\     'quit-on-open': v:true,
+	\   },
+	\   'tab:$': {
+	\     'position': 'tab:$',
+	\     'quit-on-open': v:true,
+	\   },
+	\   'floating': {
+	\     'position': 'floating',
+	\     'open-action-strategy': 'sourceWindow',
+	\   },
+	\   'floatingTop': {
+	\     'position': 'floating',
+	\     'floating-position': 'center-top',
+	\     'open-action-strategy': 'sourceWindow',
+	\   },
+	\   'floatingLeftside': {
+	\     'position': 'floating',
+	\     'floating-position': 'left-center',
+	\     'floating-width': 50,
+	\     'open-action-strategy': 'sourceWindow',
+	\   },
+	\   'floatingRightside': {
+	\     'position': 'floating',
+	\     'floating-position': 'right-center',
+	\     'floating-width': 50,
+	\     'open-action-strategy': 'sourceWindow',
+	\   },
+	\   'simplify': {
+	\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+	\   },
+	\   'buffer': {
+	\     'sources': [{'name': 'buffer', 'expand': v:true}]
+	\   },
+	\ }
+" Use preset argument to open it
+nnoremap <space>ed :CocCommand explorer --preset .vim<CR>
+nnoremap <space>ef :CocCommand explorer --preset floating<CR>
+nnoremap <space>ec :CocCommand explorer --preset cocConfig<CR>
+nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
+" List all presets
+nnoremap <space>el :CocList explPresets
 
 " -- vim-go ------------------------------------------------------------------
 let g:go_version_warning = 0
@@ -479,8 +511,8 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let python_highlight_all=1
 if has('win32')
-	set guifont=Hermit:h14
-	set guifontwide=Microsoft_YaHei_Mono:h14
+		set guifont=Hermit:h14
+		set guifontwide=Microsoft_YaHei_Mono:h14
 endif
 
 " -- one --------------------------------------------------------------------
@@ -510,5 +542,4 @@ let g:airline_theme='dracula'
 " -- ranger ------------------------------------------------------------------
 let g:ranger_map_keys = 0
 map <leader>f :RangerNewTab<CR>
-let g:NERDTreeHijackNetrw = 0
 let g:ranger_replace_netrw = 1
