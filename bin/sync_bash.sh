@@ -17,4 +17,4 @@ cp "${WORKDIR}/bash/bashrc" "${HOME}/.bashrc"
 ## mkdir MYPATH
 [ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"
 [ ! -d "${GOTMP}" ] && mkdir -p "${GOTMP}"
-[ ! -d "${TMUXTMP}" ] && mkdir -p "${TMUXTMP}"
+[ ! -d "${TMUX_TMPDIR}" ] && mkdir -p "${TMUX_TMPDIR}"
