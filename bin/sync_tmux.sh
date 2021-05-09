@@ -12,11 +12,8 @@ WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## install tmux
 if [[ -z "$(tmux -V 2>/dev/null)" ]]; then
-	echo "check not install tmux, then will install tmux secondly"
-	git clone https://github.com/tmux/tmux.git
-	sh tmux/autogen.sh
-	./tmux/configure && make && sudo make install
-	rm -rf ./tmux
+	echo "must install tmux firstly" >&2
+	exit 1
 fi
 
 ## sync tmux.conf.local

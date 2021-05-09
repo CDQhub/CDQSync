@@ -7,11 +7,12 @@
 ## @Description : sync vimrc and mkdir .vim/*
 ##########################################
 
-set -e
+set -eu
 WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 ## for vimrc config
 if [[ ! -z ${VIMDIR} ]]; then
+	mkdir ${VIMDIR} 2>/dev/null
 	echo "cp VIMRC and coc-settings.json"
 	if [[ -z "$(nvim --version 2>/dev/null)" ]]; then
 		cp "${WORKDIR}/vim/vimrc" "${VIMDIR}/vimrc"

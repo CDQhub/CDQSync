@@ -34,3 +34,6 @@ followTags = true
 [apply]
 # Detect whitespace errors when applying a patch.
 whitespace = fix
+
+[color]
+ui=auto

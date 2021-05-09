@@ -31,6 +31,7 @@ Linux setting sync
 - tmux
 - tpm
 - python3
+- pip3
 - fzf
 - zsh
 

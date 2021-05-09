@@ -12,10 +12,8 @@ WORKDIR=$(dirname $(dirname $(readlink -f "$0")))
 
 # install ranger
 if [ -z "$(ranger --version 2>/dev/null)" ]; then
-	echo "check not install ranger, then will install ranger secondly"
-	#git clone https://github.com/ranger/ranger.git
-	#sudo make install
-	pip -user install ranger-fm
+	echo "check not install ranger, must install ranger firstly" >&2
+	exit 1
 fi
 
 ## sync ranger config

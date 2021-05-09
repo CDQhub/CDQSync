@@ -257,6 +257,7 @@ Plug 'lfv89/vim-interestingwords'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'voldikss/vim-translator'
 
 " -- code write -----------------------
 Plug 'fatih/vim-go', { 'tag': '*', 'for': 'go' }
@@ -515,6 +516,19 @@ if has('win32')
 		set guifont=Hermit:h14
 		set guifontwide=Microsoft_YaHei_Mono:h14
 endif
+
+" -- translation setting -----------------------------------------------------
+" Echo translation in the cmdline
+nmap <silent> <Leader>t <Plug>Translate
+vmap <silent> <Leader>t <Plug>TranslateV
+" Display translation in a window
+nmap <silent> <Leader>w <Plug>TranslateW
+vmap <silent> <Leader>w <Plug>TranslateWV
+" Replace the text with translation
+nmap <silent> <Leader>r <Plug>TranslateR
+vmap <silent> <Leader>r <Plug>TranslateRV
+" Translate the text in clipboard
+nmap <silent> <Leader>x <Plug>TranslateX
 
 " -- one --------------------------------------------------------------------
 let g:one_allow_italics = 1
