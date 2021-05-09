@@ -38,6 +38,10 @@ echo "**********************start sync tmuxrc**********************" >&2
 echo "**********************start sync git config**********************" >&2
 ./bin/sync_git.sh
 
+## sync git
+echo "**********************start sync top config**********************" >&2
+./bin/sync_top.sh
+
 ## install fzf
 echo "**********************start install fzf**********************" >&2
 git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
