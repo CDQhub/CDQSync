@@ -15,6 +15,6 @@ echo "cp my bashrc to ~/.bashrc"
 cp "${WORKDIR}/bash/bashrc" "${HOME}/.bashrc"
 
 ## mkdir MYPATH
-[ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"
-[ ! -d "${GOTMP}" ] && mkdir -p "${GOTMP}"
+[ ! -d "${MYTMPDIR}" ] && mkdir -p "${MYTMPDIR}"
+[ ! -d "${GOTMPDIR}" ] && mkdir -p "${GOTMPDIR}"
 [ ! -d "${TMUX_TMPDIR}" ] && mkdir -p "${TMUX_TMPDIR}"

@@ -40,6 +40,6 @@ echo "cp my p10k to ~/.p10k.zsh" >&2
 cp "${WORKDIR}/zsh/p10k.zsh" "${HOME}/.p10k.zsh"
 
 ## mkdir MYPATH
-[ ! -d "${MYTMP}" ] && mkdir -p "${MYTMP}"
-[ ! -d "${GOTMP}" ] && mkdir -p "${GOTMP}"
+[ ! -d "${MYTMPDIR}" ] && mkdir -p "${MYTMPDIR}"
+[ ! -d "${GOTMPDIR}" ] && mkdir -p "${GOTMPDIR}"
 [ ! -d "${TMUX_TMPDIR}" ] && mkdir -p "${TMUX_TMPDIR}"
